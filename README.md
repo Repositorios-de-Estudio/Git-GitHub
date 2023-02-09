@@ -14,7 +14,7 @@ Copia local del repositorio (archivos de trabajo) por cada version nueva o cambi
 Copia del repositorio en un servidor externo de todos los archivos con todos los cambios realizados, esta es la manera como Git funciona. ej: GitHub, GitLab.
 
 ## Commit
-Es como un screenshot del estado actual del repositorio, los cuales se pueden revertir, consultar y comparar con otros commits.
+Para guardar el estado actual de todos los archivos de un repositorio se hace con commit. El commit es como un screenshot.
 
 ## CONFIGURACIÓN INICIAL
 
@@ -64,6 +64,13 @@ quitar archivo de seguimiento: git reset nombreArchivo
 git add .
 git commit -m "comentario"
 git pull
+
+
+# ERRORES COMUNES
+
+LF will be replaced by CRLF in archivoNombre, solución:
+git config core.autocrlf true
+
 
 ***
 # REFERENCIAS
