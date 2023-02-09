@@ -56,6 +56,8 @@ estado del repositorio, archivos pendientes de seguimiento: git status
 agregar cambios: git add nombreArchivo
 agregar todos los cambios: git add .
 quitar archivo de seguimiento: git reset nombreArchivo
+descargar cambios sin haber hecho add . : git restore archivoNombre
+descartar todos los cambios sin haber hecho commit: git restore .
 
 
 
