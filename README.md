@@ -27,6 +27,7 @@ La rama principal es: main
 Configuración de usuario como información para los commits:
 
 Usuario:
+
 `git config --global user.name "Mi Nombre"`
 
 Correo:
