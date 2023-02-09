@@ -27,19 +27,19 @@ La rama principal es: main
 Configuración de usuario como información para los commits:
 
 Usuario:
-git config --global user.name "Mi Nombre"
+`git config --global user.name "Mi Nombre"`
 
 Correo:
-git config --global user.mail "minombre@correo.com"
+`git config --global user.mail "minombre@correo.com"`
 
 Ver configuración global: 
-git config --global -e
+`git config --global -e`
 
-Archivo:
-~/.gitconfig
+Archivo configuraciones git:
+`~/.gitconfig`
 
 Establecer rama por defecto de los repositorios inicializados: 
-git config --global init.defaultBranch nombreRama
+`git config --global init.defaultBranch nombreRama`
 
 *Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.*
 
@@ -47,8 +47,9 @@ Información git del repositorio:
 ProyectoCualquiera/.git
 
 Inicializar y agregar cambios: 
-git init
-git commit -am "Mi primer commit"
+`git init`
+`git add .`
+`git commit -am "Mi primer commit"`
 
 Archivo para omitir cambios:
 modificar Proyecto/.gitignore
@@ -57,46 +58,73 @@ modificar Proyecto/.gitignore
 
 **REQ:SG** = REQUIERE SEGUIMIENTO
 
-Requiere seguimiento significa que el archivo tuvo que haber sido agregado (git add) al control de cambios de git, de lo contrario no se verá afectado por el comando en cuestion.
+- Requiere seguimiento significa que el archivo tuvo que haber sido agregado (git add) al control de cambios de git, de lo contrario no se verá afectado por el comando en cuestion.
 
 # COMANDOS DE GIT
 
-uso de comandos con palabras compeltas: git --palabra
-uso de comandos con abreviaciones: git -abreviatura
-version git: git --version
-ayuda de git: git --help , git --help palabra
+uso de comandos con palabras compeltas:
+`git --palabra`
 
-estado del repositorio, archivos pendientes de seguimiento: git status
+uso de comandos con abreviaciones:
+`git -abreviatura`
 
-ver ramas del repositorio: git branch
-cambiar nombre de la rama: git branch -m nombreActual nombreFuturo
+version git:
+`git --version`
 
-agregar cambios: git add nombreArchivo
-agregar todos los cambios: git add .
-agregar todos los cambios y crear commit: git commit -am "commit"
+ayuda de git:
+`git --help`
+`git --help palabra`
 
-quitar archivo de seguimiento: git reset nombreArchivo
+estado del repositorio, archivos pendientes de seguimiento:
+`git status`
 
-descargar cambios sin haber hecho add . (REQ:SG): git restore archivoNombre
-descartar todos los cambios sin haber hecho commit (REQ:SG): git restore .
+ver ramas del repositorio:
+`git branch`
 
-regresar repositorio al commit anterior (REQ:SG): git checkout -- .
+cambiar nombre de la rama:
+`git branch -m nombreActual nombreFuturo`
 
+agregar cambios:
+`git add nombreArchivo`
+
+agregar todos los cambios:
+`git add .`
+
+agregar todos los cambios y crear commit (REQ:SG):
+`git commit -am "commit"`
+
+quitar archivo de seguimiento:
+`git reset nombreArchivo`
+
+descargar cambios sin haber hecho add . (REQ:SG):
+`git restore archivoNombre`
+
+descartar todos los cambios sin haber hecho commit (REQ:SG):
+`git restore .`
+
+regresar repositorio al commit anterior (REQ:SG):
+`git checkout -- .`
+
+
+logs, ver los ultimos n registros: 
+`git log`
+`git log -n`
+*Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)*
 
 
 
 
 ## Agregar cambios y cargar al repositorio remoto
 
-git add .
-git commit -m "comentario"
-git pull
+`git add .`
+`git commit -m "comentario"`
+`git pull`
 
 
 # ERRORES COMUNES
 
 LF will be replaced by CRLF in archivoNombre, solución:
-git config core.autocrlf true
+`git config core.autocrlf true`
 
 
 Al revertir cambios asegurarse de que todos los archivos tengan seguimiento para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
