@@ -41,6 +41,9 @@ Información git del repositorio:
 Inicializar: 
     git init
 
+Archivo para omitir cambios:
+    modificar Proyecto/.gitignore
+
 
 
 # COMANDOS DE GIT
@@ -52,7 +55,15 @@ ayuda de git: git --help , git --help palabra
 estado del repositorio, archivos pendientes de seguimiento: git status
 agregar cambios: git add nombreArchivo
 agregar todos los cambios: git add .
+quitar archivo de seguimiento: git reset nombreArchivo
 
+
+
+## Agregar cambios y cargar al repositorio remoto
+
+git add .
+git commit -m "comentario"
+git pull
 
 ***
 # REFERENCIAS
