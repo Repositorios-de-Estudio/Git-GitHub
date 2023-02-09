@@ -4,7 +4,8 @@ Curso de: [GIT+GitHub por Fernando Herrera](https://www.udemy.com/course/git-git
 
 # DEFINICIÓN
 
-Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones. ref [Que es Git: AzureDevOps](https://learn.microsoft.com/es-es/devops/develop/git/what-is-git)
+Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones. 
+**REF** [Que es Git: AzureDevOps](https://learn.microsoft.com/es-es/devops/develop/git/what-is-git)
 
 
 ## Repositorio Local
@@ -15,6 +16,9 @@ Copia del repositorio en un servidor externo de todos los archivos con todos los
 
 ## Commit
 Para guardar el estado actual de todos los archivos de un repositorio se hace con commit. El commit es como un screenshot.
+
+## Rama
+
 
 ## CONFIGURACIÓN INICIAL
 
@@ -38,13 +42,18 @@ Establecer rama por defecto de los repositorios inicializados:
 Información git del repositorio:
     ProyectoCualquiera/.git
 
-Inicializar: 
+Inicializar y agregar cambios: 
     git init
+    git add . && git commit -m "Mi primer commit"
 
 Archivo para omitir cambios:
     modificar Proyecto/.gitignore
 
+## CONVENCIONES
 
+**REQ:SG** = REQUIERE SEGUIMIENTO
+
+Requiere seguimiento significa que el archivo tuvo que haber sido agregado (git add) al control de cambios de git, de lo contrario no se verá afectado por el comando en cuestion.
 
 # COMANDOS DE GIT
 
@@ -60,11 +69,10 @@ agregar todos los cambios: git add .
 
 quitar archivo de seguimiento: git reset nombreArchivo
 
-descargar cambios sin haber hecho add . : git restore archivoNombre
-descartar todos los cambios sin haber hecho commit: git restore .
+descargar cambios sin haber hecho add .  (REQ:SG): git restore archivoNombre
+descartar todos los cambios sin haber hecho commit (REQ:SG): git restore .
 
-regresar repositorio al commit anterior: git checkout -- .
-
+regresar repositorio al commit anterior (REQ:SG): git checkout -- .
 
 
 
@@ -79,6 +87,9 @@ git pull
 
 LF will be replaced by CRLF in archivoNombre, solución:
 git config core.autocrlf true
+
+
+Al revertir cambios asegurarse de que todos los archivos tengan seguimiento para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
 
 
 ***
