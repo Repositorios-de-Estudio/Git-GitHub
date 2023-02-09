@@ -20,20 +20,26 @@ Es como un screenshot del estado actual del repositorio, los cuales se pueden re
 
 Configuración de usuario como información para los commits:
 
-Usuario: git config --global user.name "Mi Nombre"
-Correo: git config --global user.mail "minombre@correo.com"
+Usuario:
+    git config --global user.name "Mi Nombre"
+
+Correo:
+- git config --global user.mail "minombre@correo.com"
 
 Ver configuración global: 
-git config --global -e
-Archivo: ~/.gitconfig
+    git config --global -e
+
+Archivo:
+~/.gitconfig
 
 Establecer rama por defecto de los repositorios inicializados: 
-git config --global init.defaultBranch nombreRama
+    git config --global init.defaultBranch nombreRama
 
-## Inicializar Repositorio
+Información git del repositorio:
+    ProyectoCualquiera/.git
 
-Inicializar: git init
-
+Inicializar: 
+    git init
 
 
 
@@ -43,7 +49,9 @@ uso de comandos con palabras compeltas: git --palabra
 uso de comandos con abreviaciones: git -abreviatura
 version git: git --version
 ayuda de git: git --help , git --help palabra
-
+estado del repositorio, archivos pendientes de seguimiento: git status
+agregar cambios: git add nombreArchivo
+agregar todos los cambios: git add .
 
 
 ***
