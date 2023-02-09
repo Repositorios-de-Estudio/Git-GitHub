@@ -15,7 +15,7 @@ Copia local del repositorio (archivos de trabajo) por cada version nueva o cambi
 Copia del repositorio en un servidor externo de todos los archivos con todos los cambios realizados, esta es la manera como Git funciona. ej: GitHub, GitLab.
 
 ## Commit
-Para guardar el estado actual de todos los archivos de un repositorio se hace con commit. El commit es como un screenshot.
+Para guardar el estado actual de todos los archivos de un repositorio se hace con commit. El commit es como un screenshot el cual se identifica mediante un hash y se pueden agregar comentarios a los commits.
 
 ## Rama
 Una rama o branch es una versión del repositorio desde un commit en especifico lo cual crea una bifurcación del repositorio el cual a su vez es como si fuera un repositorio a parte el cual sirve para realizar cambios para pruebas sin afectar la versión principal, luego se pueden introducir los cambios a otras ramas o a la rama principal.
@@ -47,12 +47,18 @@ Información git del repositorio:
 ProyectoCualquiera/.git
 
 Inicializar y agregar cambios: 
-`git init`
-`git add .`
-`git commit -m "Mi primer commit"`
+```
+git init
+git add .
+git commit -m "Mi primer commit"
+```
 
 Archivo para omitir cambios:
 `Proyecto/.gitignore`
+
+Arc
+
+***
 
 ## CONVENCIONES
 
@@ -90,6 +96,17 @@ agregar cambios:
 agregar todos los cambios:
 `git add .`
 
+agregar todos los cambios por tipo del directorio root:
+`git add *.html`
+*Esto NO es recurrente sobre los subdirectiorios*
+
+agregar todos los cambios de un subdirectorio y su contenido:
+`git add carpeta/`
+*Esto SI es recurrente sobre los subdirectiorios*
+
+agregar todos los cambios por tipo en un subdirectorio:
+`git add carpeta/*.html`
+
 agregar todos los cambios y crear commit (REQ:SG):
 `git commit -am "commit"`
 
@@ -116,9 +133,11 @@ logs, ver los ultimos n registros:
 
 ## Agregar cambios y cargar al repositorio remoto
 
-`git add .`
-`git commit -m "comentario"`
-`git pull`
+```
+git add .
+git commit -m "comentario"
+git pull
+```
 
 
 # ERRORES COMUNES
