@@ -27,7 +27,6 @@ La rama principal es: main
 Configuración de usuario como información para los commits:
 
 Usuario:
-
 `git config --global user.name "Mi Nombre"`
 
 Correo:
@@ -50,10 +49,10 @@ ProyectoCualquiera/.git
 Inicializar y agregar cambios: 
 `git init`
 `git add .`
-`git commit -am "Mi primer commit"`
+`git commit -m "Mi primer commit"`
 
 Archivo para omitir cambios:
-modificar Proyecto/.gitignore
+`Proyecto/.gitignore`
 
 ## CONVENCIONES
 
@@ -124,11 +123,10 @@ logs, ver los ultimos n registros:
 
 # ERRORES COMUNES
 
-LF will be replaced by CRLF in archivoNombre, solución:
+- LF will be replaced by CRLF in archivoNombre, solución:
 `git config core.autocrlf true`
 
-
-Al revertir cambios asegurarse de que todos los archivos tengan seguimiento para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
+- Al revertir cambios asegurarse de que todos los archivos tengan seguimiento para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
 
 # NOTAS
 - Las carpetas vacias no se pueden agregar al seguimiento
