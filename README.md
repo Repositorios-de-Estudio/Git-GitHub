@@ -52,12 +52,19 @@ uso de comandos con palabras compeltas: git --palabra
 uso de comandos con abreviaciones: git -abreviatura
 version git: git --version
 ayuda de git: git --help , git --help palabra
+
 estado del repositorio, archivos pendientes de seguimiento: git status
+
 agregar cambios: git add nombreArchivo
 agregar todos los cambios: git add .
+
 quitar archivo de seguimiento: git reset nombreArchivo
+
 descargar cambios sin haber hecho add . : git restore archivoNombre
 descartar todos los cambios sin haber hecho commit: git restore .
+
+regresar repositorio al commit anterior: git checkout -- .
+
 
 
 
