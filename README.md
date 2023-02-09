@@ -9,7 +9,7 @@ Git es un sistema de control de versiones distribuido, lo que significa que un c
 
 
 ## Repositorio Local
-Copia local del repositorio (archivos de trabajo) por cada version nueva o cambios que se hayan hecho.
+Copia local del repositorio (archivos de trabajo) por cada version nueva o cambios que se hayan hecho.Se puede trabajar con git de esta manera.
 
 ## Repositorio Distribuido
 Copia del repositorio en un servidor externo de todos los archivos con todos los cambios realizados, esta es la manera como Git funciona. ej: GitHub, GitLab.
@@ -27,30 +27,31 @@ La rama principal es: main
 Configuración de usuario como información para los commits:
 
 Usuario:
-    git config --global user.name "Mi Nombre"
+git config --global user.name "Mi Nombre"
 
 Correo:
-- git config --global user.mail "minombre@correo.com"
+git config --global user.mail "minombre@correo.com"
 
 Ver configuración global: 
-    git config --global -e
+git config --global -e
 
 Archivo:
 ~/.gitconfig
 
 Establecer rama por defecto de los repositorios inicializados: 
-    git config --global init.defaultBranch nombreRama
-    Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.
+git config --global init.defaultBranch nombreRama
+
+*Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.*
 
 Información git del repositorio:
-    ProyectoCualquiera/.git
+ProyectoCualquiera/.git
 
 Inicializar y agregar cambios: 
-    git init
-    git add . && git commit -m "Mi primer commit"
+git init
+git add . && git commit -m "Mi primer commit"
 
 Archivo para omitir cambios:
-    modificar Proyecto/.gitignore
+modificar Proyecto/.gitignore
 
 ## CONVENCIONES
 
