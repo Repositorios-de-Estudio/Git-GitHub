@@ -48,7 +48,7 @@ ProyectoCualquiera/.git
 
 Inicializar y agregar cambios: 
 git init
-git add . && git commit -m "Mi primer commit"
+git commit -am "Mi primer commit"
 
 Archivo para omitir cambios:
 modificar Proyecto/.gitignore
@@ -73,6 +73,7 @@ cambiar nombre de la rama: git branch -m nombreActual nombreFuturo
 
 agregar cambios: git add nombreArchivo
 agregar todos los cambios: git add .
+agregar todos los cambios y crear commit: git commit -am "commit"
 
 quitar archivo de seguimiento: git reset nombreArchivo
 
