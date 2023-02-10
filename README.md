@@ -18,10 +18,12 @@ Copia del repositorio en un servidor externo de todos los archivos con todos los
 ## Commit
 Para guardar el estado actual de todos los archivos de un repositorio se hace con commit. El commit es como un screenshot el cual se identifica mediante un hash y se pueden agregar comentarios a los commits.
 
+Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan.
+
 ## Rama
 Una rama o branch es una versión del repositorio desde un commit en especifico lo cual crea una bifurcación del repositorio el cual a su vez es como si fuera un repositorio a parte el cual sirve para realizar cambios para pruebas sin afectar la versión principal, luego se pueden introducir los cambios a otras ramas o a la rama principal.
 
-La rama principal es: main
+La rama principal es: **main**
 
 ## CONFIGURACIÓN INICIAL
 
@@ -33,9 +35,6 @@ Usuario:
 Correo:
 `git config --global user.mail "minombre@correo.com"`
 
-Ver configuración global: 
-`git config --global -e`
-
 Archivo configuraciones git:
 `~/.gitconfig`
 
@@ -45,7 +44,8 @@ Establecer rama por defecto de los repositorios inicializados:
 *Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.*
 
 Información git del repositorio:
-ProyectoCualquiera/.git
+`ProyectoCualquiera/.git`
+*Eliminar esta carpeta eliminaria git del proyecto*
 
 Inicializar y agregar cambios: 
 ```
@@ -56,6 +56,19 @@ git commit -m "Mi primer commit"
 
 Archivo para omitir cambios:
 `Proyecto/.gitignore`
+
+Cración de alias global para comandos:
+` git config --global alias.{alitas} "{comando y opciones}"`
+ejemplo para usar `git s` como `git status --shot`: 
+` git config --global alias.s "status --short"`
+
+**RECOMENDACION PARA LOG** Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD.
+`git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"`
+
+
+**VER Y CAMBIAR CONFIGURACIÓN GLOBAL:**
+`git config --global -e`
+
 
 ***
 
@@ -80,8 +93,17 @@ ayuda de git:
 `git --help`
 `git --help palabra`
 
+listar configuración:
+`git config --list`
+
+eliminar alias:
+`git config --global --unset alias.{alias}`
+
 estado del repositorio, archivos pendientes de seguimiento:
 `git status`
+
+git status con solo los cambios presentes:
+`git status --short`
 
 ver ramas del repositorio:
 `git branch`
@@ -125,13 +147,14 @@ regresar repositorio al commit anterior (REQ:SG):
 logs, ver los ultimos n registros: 
 `git log`
 `git log -n`
+`git log --oneline`
 *Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)*
 
-
+logs con grafico para ver commits y ramas:
+`git log --oneline --decorate --all --graph`
 
 
 ## Agregar cambios y cargar al repositorio remoto
-
 ```
 git add .
 git commit -m "comentario"
