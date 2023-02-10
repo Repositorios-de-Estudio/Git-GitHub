@@ -133,6 +133,13 @@ agregar todos los cambios por tipo en un subdirectorio: \
 agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
 
+agregar cambios actuales al ulitmo commit: \
+`git reset --soft HEAD^` \
+*El ^se puede reemplazar por el hash de un commit* \
+
+renombrar ultimo commit: \
+`git --amend -m "Comentario correcto"`
+
 quitar archivo del stage: \
 `git reset nombreArchivo`
 
