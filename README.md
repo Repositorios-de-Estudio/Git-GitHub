@@ -105,7 +105,8 @@ git status con solo los cambios presentes: \
 `git status --short` \
 *Modificado: M* \
 *Eliminados: D* \
-*Sin seguimiento: ??, o que no esta en el satage*
+*Sin seguimiento: U, ??* \
+*Añadido: A* \
 
 ver ramas del repositorio: \
 `git branch`
