@@ -55,7 +55,7 @@ git add .
 git commit -m "Mi primer commit"
 ```
 
-Archivo para omitir cambios: \
+No agregar al stage archivos y directorios en concreto: \
 `Proyecto/.gitignore`
 
 Cración de alias global para comandos: \
@@ -150,7 +150,9 @@ diferencia entre archivos estado actual vs ultimo commit:
 *archivo anterior: a/archivo* \
 *archivo actual: b/archivo* \
 *linea eliminada: - (en rojo)* \
-*linea agreada: + (en verde)*
+*linea agreada: + (en verde)* \
+_Con editores de texto se puede ver las fiferencias sobre el archivo_
+
 
 logs, ver los ultimos n registros:  \
 `git log` \
