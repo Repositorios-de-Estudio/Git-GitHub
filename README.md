@@ -94,13 +94,16 @@ uso de comandos con palabras compeltas:
 
 `git --palabra`
 
+
 uso de comandos con abreviaciones:
 
 `git -abreviatura`
 
+
 version git:
 
 `git --version`
+
 
 ayuda de git:
 
@@ -108,16 +111,20 @@ ayuda de git:
 
 `git --help palabra`
 
+
 listar configuración:
 
 `git config --list`
+
 
 eliminar alias:
 
 `git config --global --unset alias.{alias}`
 
+
 estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage:
 `git status`
+
 
 git status con solo los cambios presentes:
 `git status --short`
