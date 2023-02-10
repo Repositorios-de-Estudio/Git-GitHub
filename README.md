@@ -133,9 +133,10 @@ agregar todos los cambios por tipo en un subdirectorio: \
 agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
 
-agregar cambios actuales al ulitmo commit: \
+eliminar ultimo commit sin borrar cambios: \
 `git reset --soft HEAD^` \
 *El ^se puede reemplazar por el hash de un commit* \
+*Luego se puede hacer un nuevo commit*
 
 renombrar ultimo commit: \
 `git --amend -m "Comentario correcto"`
@@ -189,6 +190,7 @@ git pull
 # NOTAS
 - Las carpetas vacias no se pueden agregar al stage
 - Usar los alias facilita el trabajo
+- No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior
 
 # RECOMENDACIONES
 - Alistas s para status short: 
