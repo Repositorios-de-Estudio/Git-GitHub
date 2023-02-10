@@ -33,21 +33,27 @@ La rama principal es: **main**
 Configuración de usuario como información para los commits:
 
 Usuario:
+
 `git config --global user.name "Mi Nombre"`
 
 Correo:
+
 `git config --global user.mail "minombre@correo.com"`
 
 Archivo configuraciones git:
+
 `~/.gitconfig`
 
 Establecer rama por defecto de los repositorios inicializados: 
+
 `git config --global init.defaultBranch nombreRama`
 
 *Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.*
 
 Información git del repositorio:
+
 `ProyectoCualquiera/.git`
+
 *Eliminar esta carpeta eliminaria git del proyecto*
 
 Inicializar y agregar cambios: 
@@ -58,14 +64,19 @@ git commit -m "Mi primer commit"
 ```
 
 Archivo para omitir cambios:
+
 `Proyecto/.gitignore`
 
 Cración de alias global para comandos:
+
 ` git config --global alias.{alitas} "{comando y opciones}"`
+
 ejemplo para usar `git s` como `git status --shot`: 
+
 ` git config --global alias.s "status --short"`
 
 **VER Y CAMBIAR CONFIGURACIÓN GLOBAL:**
+
 `git config --global -e`
 
 
@@ -73,29 +84,36 @@ ejemplo para usar `git s` como `git status --shot`:
 
 ## CONVENCIONES
 
-- **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
+1. **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
 
 Significa que el archivo tuvo que haber sido agregado al control de cambios (git add), de lo contrario no se verá afectado por el comando en cuestion.
 
 # COMANDOS DE GIT
 
 uso de comandos con palabras compeltas:
+
 `git --palabra`
 
 uso de comandos con abreviaciones:
+
 `git -abreviatura`
 
 version git:
+
 `git --version`
 
 ayuda de git:
+
 `git --help`
+
 `git --help palabra`
 
 listar configuración:
+
 `git config --list`
 
 eliminar alias:
+
 `git config --global --unset alias.{alias}`
 
 estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage:
@@ -146,7 +164,7 @@ regresar repositorio al commit anterior (REQ:SG):
 `git checkout -- .`
 
 diferencia entre archivos estado actual vs ultimo commit:
-`git diff`
+`git diff` <br>
 *archivo anterior: a/archivo*
 *archivo actual: b/archivo*
 *linea eliminada: - (en rojo)*
