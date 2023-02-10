@@ -4,8 +4,7 @@ Curso de: [GIT+GitHub por Fernando Herrera](https://www.udemy.com/course/git-git
 
 # CONCEPTOS Y DEFINICIONES
 
-Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones. 
-\
+Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones.  \
 **REF** [Que es Git: AzureDevOps](https://learn.microsoft.com/es-es/devops/develop/git/what-is-git)
 
 
@@ -32,28 +31,21 @@ La rama principal es: **main**
 
 Configuración de usuario como información para los commits:
 
-Usuario:
-\
+Usuario: \
 `git config --global user.name "Mi Nombre"`
 
-Correo:
-\
+Correo: \
 `git config --global user.mail "minombre@correo.com"`
 
-Archivo configuraciones git:
-\
+Archivo configuraciones git: \
 `~/.gitconfig`
 
-Establecer rama por defecto de los repositorios inicializados: 
-\
-`git config --global init.defaultBranch nombreRama`
-\
+Establecer rama por defecto de los repositorios inicializados:  \
+`git config --global init.defaultBranch nombreRama` \
 *Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.*
 
-Información git del repositorio:
-\
-`ProyectoCualquiera/.git`
-\
+Información git del repositorio: \
+`ProyectoCualquiera/.git` \
 *Eliminar esta carpeta eliminaria git del proyecto*
 
 Inicializar y agregar cambios: 
@@ -63,20 +55,16 @@ git add .
 git commit -m "Mi primer commit"
 ```
 
-Archivo para omitir cambios:
-\
+Archivo para omitir cambios: \
 `Proyecto/.gitignore`
 
-Cración de alias global para comandos:
-\
+Cración de alias global para comandos: \
 ` git config --global alias.{alitas} "{comando y opciones}"`
 
-ejemplo para usar `git s` como `git status --shot`: 
-\
+ejemplo para usar `git s` como `git status --shot`:  \
 ` git config --global alias.s "status --short"`
 
-**VER Y CAMBIAR CONFIGURACIÓN GLOBAL:**
-\
+**VER Y CAMBIAR CONFIGURACIÓN GLOBAL:** \
 `git config --global -e`
 
 
@@ -90,122 +78,87 @@ Significa que el archivo tuvo que haber sido agregado al control de cambios (git
 
 # COMANDOS DE GIT
 
-uso de comandos con palabras compeltas:
-\
+uso de comandos con palabras compeltas: \
 `git --palabra`
 
-uso de comandos con abreviaciones:
-\
+uso de comandos con abreviaciones: \
 `git -abreviatura`
 
-version git:
-\
+version git: \
 `git --version`
 
-ayuda de git:
-\
-`git --help`
-\
+ayuda de git: \
+`git --help` \
 `git --help palabra`
 
-listar configuración:
-\
+listar configuración: \
 `git config --list`
 
-eliminar alias:
-\
+eliminar alias: \
 `git config --global --unset alias.{alias}`
 
-estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage:
-\
+estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage: \
 `git status`
 
 
-git status con solo los cambios presentes:
-\
-`git status --short`
-\
-*Modificado: M*
-\
-*Eliminados: D*
-\
+git status con solo los cambios presentes: \
+`git status --short` \
+*Modificado: M* \
+*Eliminados: D* \
 *Sin seguimiento: ??, o que no esta en el satage*
 
-ver ramas del repositorio:
-\
+ver ramas del repositorio: \
 `git branch`
 
-cambiar nombre de la rama:
-\
+cambiar nombre de la rama: \
 `git branch -m nombreActual nombreFuturo`
 
-agregar cambios:
-\
+agregar cambios: \
 `git add nombreArchivo`
 
-agregar todos los cambios:
-\
+agregar todos los cambios: \
 `git add .`
 
-agregar todos los cambios por tipo del directorio root:
-\
-`git add *.html`
-\
+agregar todos los cambios por tipo del directorio root: \
+`git add *.html` \
 *Esto NO es recurrente sobre los subdirectiorios*
 
-agregar todos los cambios de un subdirectorio y su contenido:
-\
-`git add carpeta/`
-\
+agregar todos los cambios de un subdirectorio y su contenido: \
+`git add carpeta/` \
 *Esto SI es recurrente sobre los subdirectiorios*
 
-agregar todos los cambios por tipo en un subdirectorio:
-\
+agregar todos los cambios por tipo en un subdirectorio: \
 `git add carpeta/*.html`
 
-agregar todos los cambios y crear commit (REQ:SG):
-\
+agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
 
-quitar archivo del stage:
-\
+quitar archivo del stage: \
 `git reset nombreArchivo`
 
-descargar cambios sin haber hecho add . (REQ:SG):
-\
+descargar cambios sin haber hecho add . (REQ:SG): \
 `git restore archivoNombre`
 
-descartar todos los cambios sin haber hecho commit (REQ:SG):
-\
+descartar todos los cambios sin haber hecho commit (REQ:SG): \
 `git restore .`
 
-regresar repositorio al commit anterior (REQ:SG):
-\
+regresar repositorio al commit anterior (REQ:SG): \
 `git checkout -- .`
 
 diferencia entre archivos estado actual vs ultimo commit:
-`git diff`
-\
-*archivo anterior: a/archivo*
-\
-*archivo actual: b/archivo*
-\
-*linea eliminada: - (en rojo)*
-\
+`git diff` \
+*archivo anterior: a/archivo* \
+*archivo actual: b/archivo* \
+*linea eliminada: - (en rojo)* \
 *linea agreada: + (en verde)*
 
-logs, ver los ultimos n registros: 
-\
-`git log`
-\
-`git log -n`
-\
-`git log --oneline`
-\
+logs, ver los ultimos n registros:  \
+`git log` \
+`git log -n` \
+`git log --oneline` \
 *Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)*
 
-logs con grafico para ver commits y ramas:
-\
+logs con grafico para ver commits y ramas: \
 `git log --oneline --decorate --all --graph`
 
 
@@ -219,8 +172,7 @@ git pull
 
 # ERRORES COMUNES
 
-- LF will be replaced by CRLF in archivoNombre, solución:
-\
+- LF will be replaced by CRLF in archivoNombre, solución: \
 `git config core.autocrlf true`
 
 - Al revertir los cambios asegurarse de que todos los archivos esten en el stage para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
