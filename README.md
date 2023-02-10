@@ -17,10 +17,13 @@ Copia del repositorio en un servidor externo de todos los archivos con todos los
 ## Stage
 Es el espacio de trabajo temporal donde se van guardando los cambios a los archivos con seguimiento. No estar en el stage sigfinica que los archivos en cuestion no tiene seguimiento.
 
+## Apuntador
+Es la referencia de donde se encuentra ubicado actualmente en el tiempo. generalmente el apuntador siempre apunta a HEAD.
+
 ## Commit
 Se usa para para guardar el estado actual de todos los archivos en el stage sin cambios guardados. El commit es como un screenshot el cual se identifica mediante un hash y se pueden agregar comentarios a los commits.
 
-Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan.
+Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan. Esto significa que el apuntador se mueve a ese commit.
 
 ## Rama
 Una rama o branch es una versión del repositorio desde un commit en especifico lo cual crea una bifurcación del repositorio el cual a su vez es como si fuera un repositorio a parte el cual sirve para realizar cambios para pruebas sin afectar la versión principal, luego se pueden introducir los cambios a otras ramas o a la rama principal.
@@ -75,6 +78,9 @@ ejemplo para usar `git s` como `git status --shot`:  \
 1. **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
 
 Significa que el archivo tuvo que haber sido agregado al control de cambios (git add), de lo contrario no se verá afectado por el comando en cuestion.
+2. **HEAD^**
+
+Es el commit anterior al actual, este se puede reemplazar por el hash de un commit.
 
 # COMANDOS DE GIT
 
@@ -99,7 +105,6 @@ eliminar alias: \
 
 estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage: \
 `git status`
-
 
 git status con solo los cambios presentes: \
 `git status --short` \
@@ -134,16 +139,29 @@ agregar todos los cambios por tipo en un subdirectorio: \
 agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
 
-eliminar ultimo commit sin borrar cambios: \
+eliminar commit sin borrar cambios: \
 `git reset --soft HEAD^` \
-*El ^se puede reemplazar por el hash de un commit* \
-*Luego se puede hacer un nuevo commit*
+*Regresa al commit señalado y automaticamente agrega los cambios realizados* \
+
+eliminar commit sin borrar cambios: \
+`git reset --mixed HEAD^` \
+*Regresa al commit señalado y NO agrega los cambios realizados, quita todos los archivos agregados al stage que no estaban en ese commit por lo que necesario hacer git add .* 
+
+eliminar commit y borrar todos los cambios: \
+`git reset --hard HEAD^` \
+*Regresa al commit señalado y borra todos los cambios realizados*
+
+revertir los cambios eliminados con reset --hard: \
+`git reflog` \
+`git reset --hard hash-de-commit` \
+*Se regresa al estado de un estado anterior, se usa reflog para ver todos los registros y escocoger uno anterior a la eliminación que se quiere restaurar*
 
 renombrar ultimo commit: \
 `git --amend -m "Comentario correcto"`
 
 quitar archivo del stage: \
-`git reset nombreArchivo`
+`git reset nombreArchivo` \
+*Predeterminadamente usa la opción --mixed*
 
 descargar cambios sin haber hecho add . (REQ:SG): \
 `git restore archivoNombre`
@@ -167,7 +185,12 @@ logs, ver los ultimos n registros:  \
 `git log` \
 `git log -n` \
 `git log --oneline` \
-*Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)*
+*Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)* \
+*Este comando no muestra los commit desechos realizados por git reset*
+
+Ver todos los registros:  \
+`git log` \
+*Este comando registra todo, incluyendo los cambios desechos por git reset*
 
 logs con grafico para ver commits y ramas: \
 `git log --oneline --decorate --all --graph`
@@ -191,7 +214,7 @@ git pull
 # NOTAS
 - Las carpetas vacias no se pueden agregar al stage
 - Usar los alias facilita el trabajo
-- No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior
+- No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior. Se recomienda generar una rama desde ese commit y trabajar sobre ella y luego unir los cambios con la rama principal.
 
 # RECOMENDACIONES
 - Alistas s para status short: 
