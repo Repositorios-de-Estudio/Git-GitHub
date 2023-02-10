@@ -15,8 +15,11 @@ Copia local del repositorio (archivos de trabajo) por cada version nueva o cambi
 ## Repositorio Distribuido
 Copia del repositorio en un servidor externo de todos los archivos con todos los cambios realizados, esta es la manera como Git funciona. ej: GitHub, GitLab.
 
+## Stage
+Es el espacio de trabajo temporal donde se van guardando los cambios a los archivos con seguimiento. No estar en el stage sigfinica que los archivos en cuestion no tiene seguimiento.
+
 ## Commit
-Para guardar el estado actual de todos los archivos de un repositorio se hace con commit. El commit es como un screenshot el cual se identifica mediante un hash y se pueden agregar comentarios a los commits.
+Se usa para para guardar el estado actual de todos los archivos en el stage sin cambios guardados. El commit es como un screenshot el cual se identifica mediante un hash y se pueden agregar comentarios a los commits.
 
 Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan.
 
@@ -62,10 +65,6 @@ Cración de alias global para comandos:
 ejemplo para usar `git s` como `git status --shot`: 
 ` git config --global alias.s "status --short"`
 
-**RECOMENDACION PARA LOG** Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD.
-`git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"`
-
-
 **VER Y CAMBIAR CONFIGURACIÓN GLOBAL:**
 `git config --global -e`
 
@@ -74,9 +73,9 @@ ejemplo para usar `git s` como `git status --shot`:
 
 ## CONVENCIONES
 
-**REQ:SG** = REQUIERE SEGUIMIENTO
+- **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
 
-- Requiere seguimiento significa que el archivo tuvo que haber sido agregado (git add) al control de cambios de git, de lo contrario no se verá afectado por el comando en cuestion.
+Significa que el archivo tuvo que haber sido agregado al control de cambios (git add), de lo contrario no se verá afectado por el comando en cuestion.
 
 # COMANDOS DE GIT
 
@@ -99,11 +98,14 @@ listar configuración:
 eliminar alias:
 `git config --global --unset alias.{alias}`
 
-estado del repositorio, archivos pendientes de seguimiento:
+estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage:
 `git status`
 
 git status con solo los cambios presentes:
 `git status --short`
+*Modificado: M*
+*Eliminados: D*
+*Sin seguimiento: ??, o que no esta en el satage*
 
 ver ramas del repositorio:
 `git branch`
@@ -131,7 +133,7 @@ agregar todos los cambios por tipo en un subdirectorio:
 agregar todos los cambios y crear commit (REQ:SG):
 `git commit -am "commit"`
 
-quitar archivo de seguimiento:
+quitar archivo del stage:
 `git reset nombreArchivo`
 
 descargar cambios sin haber hecho add . (REQ:SG):
@@ -143,6 +145,12 @@ descartar todos los cambios sin haber hecho commit (REQ:SG):
 regresar repositorio al commit anterior (REQ:SG):
 `git checkout -- .`
 
+diferencia entre archivos estado actual vs ultimo commit:
+`git diff`
+*archivo anterior: a/archivo*
+*archivo actual: b/archivo*
+*linea eliminada: - (en rojo)*
+*linea agreada: + (en verde)*
 
 logs, ver los ultimos n registros: 
 `git log`
@@ -167,12 +175,25 @@ git pull
 - LF will be replaced by CRLF in archivoNombre, solución:
 `git config core.autocrlf true`
 
-- Al revertir cambios asegurarse de que todos los archivos tengan seguimiento para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
+- Al revertir los cambios asegurarse de que todos los archivos esten en el stage para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
 
 # NOTAS
-- Las carpetas vacias no se pueden agregar al seguimiento
+- Las carpetas vacias no se pueden agregar al stage
+- Usar los alias facilita el trabajo
+
+# RECOMENDACIONES
+- Alistas s para status short: 
+```
+git config --global alias.s "status --short"
+```
+- Alistas lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD.
+```
+git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+```
+
 
 ***
 # REFERENCIAS
+- [Documentación Oficial](https://git-scm.com/docs)
 
 
