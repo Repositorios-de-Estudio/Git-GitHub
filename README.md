@@ -124,6 +124,7 @@ estado del repositorio, modificaciones, eliminaciones y archvios que no estan en
 git status con solo los cambios presentes:
 \
 `git status --short`
+\
 *Modificado: M*
 \
 *Eliminados: D*
