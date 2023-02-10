@@ -109,9 +109,12 @@ estado del repositorio, modificaciones, eliminaciones y archvios que no estan en
 git status con solo los cambios presentes: \
 `git status --short` \
 *Modificado: M* \
-*Eliminados: D* \
+*Eliminado: D* \
 *Sin seguimiento: U, ??* \
 *Añadido: A* \
+*Renombrado: R*  \
+*Color verde: ESTA en el stage*
+*Color verde: NO esta en el stage*
 
 ver ramas del repositorio: \
 `git branch`
@@ -162,6 +165,15 @@ renombrar ultimo commit: \
 quitar archivo del stage: \
 `git reset nombreArchivo` \
 *Predeterminadamente usa la opción --mixed*
+
+renombrar o mover archivo (REQ:SG): \
+`git mv ruta/nombreViejo.algo ruta(nombreNuevo.algo` \
+*ruta puede ser la misma ruta o una diferente*
+
+eliminar archivo: \
+`git rm -f nombreArchivo` \
+*-f opción para forzar eliminacion* \
+*Se puede resturar con git reset --hard si (REQ:SG)*
 
 descargar cambios sin haber hecho add . (REQ:SG): \
 `git restore archivoNombre`
@@ -217,15 +229,15 @@ git pull
 - No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior. Se recomienda generar una rama desde ese commit y trabajar sobre ella y luego unir los cambios con la rama principal.
 
 # RECOMENDACIONES
-- Alistas s para status short: 
+- Alias s para status short: 
 ```
 git config --global alias.s "status --short"
 ```
-- Alistas lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD.
+- Alias lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD.
 ```
 git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 ```
-
+- AL nombrar, o eliminar y volver a restaurar el archivo puede hacer que se pierda todo el historial de cambios del archivo, se recomienda usar los comandos de git: mv, rm
 
 ***
 # REFERENCIAS
