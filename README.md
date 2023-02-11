@@ -4,8 +4,9 @@ Curso de: [GIT+GitHub por Fernando Herrera](https://www.udemy.com/course/git-git
 
 # CONCEPTOS Y DEFINICIONES
 
-Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones.  \
-**REF** [Que es Git: AzureDevOps](https://learn.microsoft.com/es-es/devops/develop/git/what-is-git)
+Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones.
+
+**Ref:** [Que es Git: AzureDevOps](https://learn.microsoft.com/es-es/devops/develop/git/what-is-git)
 
 
 ## Repositorio Local
@@ -37,7 +38,7 @@ Una rama o branch es una versión del repositorio (temporal y espacial) desde un
 - Inicialmente el HEAD apunta al main y a la nueva rama
 - Cuando hay un commit nuevo el HEAD apuntaria a la rama con de ese commit
 
-## MERGE (unión) de Rama y Conflictos
+## MERGE (unión) de Ramas y Conflictos
 
 Al unir las ramas a demas de introducir cambios a la rama principal, tambien se agregan los commits que se hayan hecho. Git siempre intentará resolver el merge de manera automatica.
 
@@ -77,7 +78,7 @@ git commit -m "Mi primer commit"
 ```
 
 Omitir o ignorar del stage archivos y directorios en concreto: \
-`Proyecto/.gitignore`
+`Proyecto/.gitignore` \
 *OMITE los cambios realiazos sobre los directorios, subdirectorios y archivos especificados* \
 *Estos archivos no se cargan al repositorio*
 
@@ -98,6 +99,7 @@ ejemplo para usar `git s` como `git status --shot`:  \
 1. **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
 
 Significa que el archivo tuvo que haber sido agregado al control de cambios (git add), de lo contrario no se verá afectado por el comando en cuestion.
+
 2. **HEAD^**
 
 Es el commit anterior al actual, este se puede reemplazar por el hash de un commit.
@@ -128,13 +130,8 @@ estado del repositorio, modificaciones, eliminaciones y archvios que no estan en
 
 git status con solo los cambios presentes: \
 `git status --short` \
-*Modificado: M* \
-*Eliminado: D* \
-*Sin seguimiento: U, ??* \
-*Añadido: A* \
-*Renombrado: R*  \
-*Color verde: ESTA en el stage*
-*Color verde: NO esta en el stage*
+*Modificado: M - Eliminado: D - Sin seguimiento: U, ?? - Añadido: A - Renombrado: R*  \
+*Color verde: ESTA en el stage - Color verde: NO esta en el stage*
 
 agregar archivo al stage: \
 `git add nombreArchivo`
@@ -162,7 +159,7 @@ eliminar commit sin borrar cambios: \
 
 eliminar commit sin borrar cambios: \
 `git reset --mixed HEAD^` \
-*Regresa al commit señalado y NO agrega los cambios realizados, quita todos los archivos agregados al stage que no estaban en ese commit por lo que necesario hacer git add .* 
+*Regresa al commit señalado y NO agrega los cambios realizados, quita todos los archivos agregados al stage que no estaban en ese commit por lo que será necesario hacer git add .* 
 
 eliminar commit y borrar todos los cambios: \
 `git reset --hard HEAD^` \
@@ -201,16 +198,16 @@ regresar repositorio al commit anterior (REQ:SG): \
 
 diferencia entre archivos estado actual vs ultimo commit:
 `git diff` \
-*archivo anterior: a/archivo* \
-*archivo actual: b/archivo* \
-*linea eliminada: - (en rojo)* \
-*linea agreada: + (en verde)* \
-_Con editores de texto se puede ver las fiferencias sobre el archivo_
+*archivo anterior: a/archivo - archivo actual: b/archivo* \
+*linea eliminada: - (en rojo), linea agreada: + (en verde)* \
+*Con editores de texto se puede ver las fiferencias sobre el archivo*
 
 logs, ver los ultimos n registros:  \
-`git log` \
-`git log -n` \
-`git log --oneline` \
+```
+git log
+git log -n
+git log --oneline
+```
 *Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)* \
 *Este comando no muestra los commit desechos realizados por git reset*
 
@@ -319,9 +316,9 @@ resolver conflictos: \
 - Usar los alias facilita el trabajo
 - No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior. Se recomienda generar una rama desde ese commit y trabajar sobre ella y luego unir los cambios con la rama principal.
 - Versionamiento: v{1}.{2}.{3}: 
-    - 1. Gran cambio
-    - 2. Funcionalidad agregada o cambiada
-    - 3. Solución de bug
+    1. Gran cambio
+    2. Funcionalidad agregada o cambiada
+    3. Solución de bug
 
 # RECOMENDACIONES
 - Alias s para status short: 
