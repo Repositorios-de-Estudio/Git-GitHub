@@ -48,6 +48,26 @@ Al unir las ramas a demas de introducir cambios a la rama principal, tambien se 
 
 - **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre la rama principal y la otra rama. La solución del conflicto crea un commit llamada *Merge Commit*.
 
+# Stash
+Se usa para guardar todos los cambios que aún no estan en el stage luego del último commit en otro lugar dejando de esta manera todo el repositorio en el mismo estado del último commit, posteriormente se pueden unir estos cambio, cuando se unen estos cambios del stash el stage los va a reconocer como cambios sin guardar. Se pueden crear stash con nombres y estos se apilan entre si.
+- Esto es util cuando se requiere coninuar con el trabajo tal cual como esta en el último commit.
+- Los stash pueden crearce con nombres
+- Los stash se ven en el log y tiene su hash similar a un commit
+- Los stash se ven como bifurcaciones en el log, cuando se restaura tambien se elimina del log siempre y cuando haya generado conflictos
+- Cuando se restaura desde el stash resolviendo conflictos en la pila de stashes queda un resgistro que se puede borrar
+- Cuando se restaura un stash puede ocasionar conflictos, por lo que se deben solucionar
+
+## (POP) unión desde Stash y Conflictos
+
+Al unir los cambios desde el stash se pueden presentar conflictos de la misma manera que en el merge de ramas. Git siempre intentará resolver el merge de manera automatica.
+
+- **Fast-forward**: Unión rapida se da cuando git no encuentra ningun conlicto.
+
+- **Automaticas**: Unión automatica se da cuando git detecta que los mismos archivos fueron modificados pero no en las lismas lineas.
+
+- **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre. Se soluciona de la misma manera que un *Merge Commit*.
+
+# Rebase
 
 ## CONFIGURACIÓN INICIAL
 
@@ -93,8 +113,9 @@ ejemplo para usar `git s` como `git status --shot`:  \
 
 
 ***
+# COMANDOS DE GIT
 
-## CONVENCIONES
+## Convenciones
 
 1. **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
 
@@ -104,9 +125,17 @@ Significa que el archivo tuvo que haber sido agregado al control de cambios (git
 
 Es el commit anterior al actual, este se puede reemplazar por el hash de un commit.
 
-# COMANDOS DE GIT
+# Basicos de GIT
 
-uso de comandos con palabras compeltas: \
+traer cambios del repositorio remoto al local: \
+`git pull` \
+*Esto solo trae los cambios de la rama en la que se esta localmente*
+
+cargar o enviar cambios del repositorio local al remoto: \
+`git push` \
+*Esto solo envia los cambios de la rama en la que se esta localmente*
+
+uso de comandos con palabras completa: \
 `git --palabra`
 
 uso de comandos con abreviaciones: \
@@ -170,6 +199,9 @@ revertir los cambios eliminados con reset --hard: \
 `git reset --hard hash-de-commit` \
 *Se regresa al estado de un estado anterior, se usa reflog para ver todos los registros y escocoger uno anterior a la eliminación que se quiere restaurar*
 
+revertir commit:
+`git revert `
+
 renombrar ultimo commit: \
 `git --amend -m "Comentario correcto"`
 
@@ -184,7 +216,7 @@ renombrar o mover archivo (REQ:SG): \
 eliminar archivo: \
 `git rm -f nombreArchivo` \
 *-f opción para forzar eliminacion* \
-*Se puede resturar con git reset --hard si (REQ:SG)*
+*Se puede restaurar con git reset --hard si (REQ:SG)*
 
 descargar cambios sin haber hecho add . (REQ:SG): \
 `git restore archivoNombre`
@@ -238,6 +270,38 @@ ver detalles del tag: \
 `git show v0.1.0` \
 *Muestra cuando se hizo, por quien, el commit al que pertenece e información sobre los cambios de ese commit*
 
+agregar stash: \
+`git stash`
+
+agregar stash con nombre o mensaje: \
+`git stash save "Mensaje"`
+
+ver stashes: \
+`git stash list` \
+*Mustra los stashes como una pila*
+
+restaurar cambios desde stash: \
+`git stash pop` \
+*Restaura el primer stash de la pila stash@{0} y lo elimina de la pila*
+
+restaurar cambios desde un stash particular: \
+`git stash apply stash@{2}` \
+*Esto no elimina el stash de la pila, sería necesario usar git drop o clear*
+
+ver los archivos con cambios contenidos en un stash: \
+`git stash show stash@{2}`
+
+ver lista de stashes con detalles: \
+`git stash list --stat`
+
+eliminar un stash particular: \
+`git stash clear` \
+*Se pueden recuperar los cambios de los stash con el hash en reflog*
+
+vaciar o eliminar todos los stash: \
+`git stash drop stash@{3}` \
+*Si no se indica el stash por fecto elimina el primero: {0}*
+
 # Trabajo con Ramas
 
 ver ramas del repositorio: \
@@ -266,8 +330,7 @@ unir ramas, introducir cambios de otraRama a main:
 git checkout master
 git merge otraRama
 ```
-*Trae los cambios de otraRama a main*
-*Luego de la unión el HEAD apuntaria a main y otraRama*
+*Trae los cambios de otraRama a main - Luego de la unión el HEAD apuntaria a main y otraRama*
 *Puede resultar en Fast-forward o Automatic o manual*
 
 resolver conflictos: \
@@ -281,7 +344,6 @@ resolver conflictos: \
     ```
     <<<<<<< HEAD
     3. Buscar nuevos miembros que luchen por la justicia.
-    4. Buscar comida para ellos.
     =======
     3. Buscar nuevos miembros que sean super heroes
     >>>>>>> nueva-rama
@@ -289,12 +351,8 @@ resolver conflictos: \
     - Solución:
     ```
     3. Buscar nuevos miembros que luchen por la justicia y sean super heroes.
-    4. Buscar comida para ellos.
     ```
-    - Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. \
-    ```
-    git commit -am "resuelve conficto"
-    ```
+    - Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. `git commit -am "resuelve conficto"`
 
     # Agregar cambios y cargar al repositorio remoto
     ```
@@ -325,12 +383,14 @@ resolver conflictos: \
 ```
 git config --global alias.s "status --short"
 ```
-- Alias lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD.
+- Alias lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD
 ```
 git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 ```
 - Al nombrar, o eliminar y volver a restaurar el archivo puede hacer que se pierda todo el historial de cambios del archivo, se recomienda usar los comandos de git: mv, rm
 - Para versionamiento es recomendable usar tag anotado: `git tag -a`
+- No se recomienda usar mas de un stash, es mejor opción usar ramas y es mas seguro
+- Se recomienda vaciar la pila de stash si ya se tiene el estado deseado en el proyecto
 
 ***
 # REFERENCIAS
