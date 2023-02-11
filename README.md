@@ -25,22 +25,27 @@ Se usa para para guardar el estado actual de todos los archivos en el stage sin 
 
 Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan. Esto significa que el apuntador se mueve a ese commit.
 
+## Tags
+Son etiquetas que ahcen referencia hace un commit y a todo el estado del proyecto en ese punto.
+    - Los tags se ven en el log, el tag siempre va a apuntar al commit donde se crea el tag
+
 ## Rama
 Una rama o branch es una versión del repositorio (temporal y espacial) desde un commit en especifico lo cual crea una bifurcación de este que a su vez es como si fuera un repositorio a parte,el cual sirve en la practica para desarrollar cosas diferentes que afecta el proyecto paralelamente pero los cambios se realizan sobre otra rama distinta a la principal. Luego se pueden introducir los cambios a otras ramas o a la rama principal con uniones.
 
-La rama principal es: **main**
+- La rama principal es: **main**
+- Los commit se comparten entre todas las ramas
+- Inicialmente el HEAD apunta al main y a la nueva rama
+- Cuando hay un commit nuevo el HEAD apuntaria a la rama con de ese commit
 
 ## MERGE (unión) de Rama y Conflictos
 
-Al unir las ramas a demas de introducir cambios a la rama principal, tambien se agregan los commits que se hayan hecho.
+Al unir las ramas a demas de introducir cambios a la rama principal, tambien se agregan los commits que se hayan hecho. Git siempre intentará resolver el merge de manera automatica.
 
-- **Fast-forward**: Unión rapida se da cuando git no encuentra ningun cambio en la rama principal y los cambios pueden ser incorporados sin problema.
+- **Fast-forward**: Unión rapida se da cuando git no encuentra ningun commit en la rama principal y los cambios de la otra rama pueden ser incorporados sin problema.
 
 - **Automaticas**: Unión automatica se da cuando git detecta que en la rama principal hubieron cambios que no estan presentes en la otra rama pero no se cruzan en los mismos lugares en los archivos con cambios en la otra rama.
 
 - **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre la rama principal y la otra rama. La solución del conflicto crea un commit llamada *Merge Commit*.
-
-
 
 
 ## CONFIGURACIÓN INICIAL
@@ -131,12 +136,6 @@ git status con solo los cambios presentes: \
 *Color verde: ESTA en el stage*
 *Color verde: NO esta en el stage*
 
-ver ramas del repositorio: \
-`git branch`
-
-cambiar nombre de la rama: \
-`git branch -m nombreActual nombreFuturo`
-
 agregar archivo al stage: \
 `git add nombreArchivo`
 
@@ -208,7 +207,6 @@ diferencia entre archivos estado actual vs ultimo commit:
 *linea agreada: + (en verde)* \
 _Con editores de texto se puede ver las fiferencias sobre el archivo_
 
-
 logs, ver los ultimos n registros:  \
 `git log` \
 `git log -n` \
@@ -223,13 +221,90 @@ Ver todos los registros:  \
 logs con grafico para ver commits y ramas: \
 `git log --oneline --decorate --all --graph`
 
+ver tags: \
+`git tag`
 
-## Agregar cambios y cargar al repositorio remoto
+agregar un tag: \
+`git tag nombre-de-tag`
+
+eliminar tag: \
+`git tag -d nombre-del-tag`
+
+crear tag anotado: \
+`git tag -a v1.0.0 -m "Version mensaje"` \
+*El mensaje del tag no se ve en el log, solo se ve el tag*
+
+agregar a tag anotado a commit: \
+`git tag -a v0.0.0 hash-del-commit -m "Version mensaje"`
+
+ver detalles del tag: \
+`git show v0.1.0` \
+*Muestra cuando se hizo, por quien, el commit al que pertenece e información sobre los cambios de ese commit*
+
+# Trabajo con Ramas
+
+ver ramas del repositorio: \
+`git branch`
+*Indica * la rama actual*
+
+eliminar rama: \
+`git branch -d otraRama`
+
+cambiar nombre de la rama: \
+`git branch -m nombreActual nombreFuturo`
+*Si hubieran cambios sin unir a otra rama git lo alerta*
+
+crear rama: \
+`git branch otraRama`
+
+crear rama y moverse a esa rama: \
+`git checkout -b otraRama`
+
+cambiar de rama: \
+`git checkout otraRama`
+*Solo se actualizan los archivos (REQ:SG), los que no estan en el stage siempre se veran hasta que los agreguemos al stage de alguna rama*
+
+unir ramas, introducir cambios de otraRama a main: 
 ```
-git add .
-git commit -m "comentario"
-git pull
+git checkout master
+git merge otraRama
 ```
+*Trae los cambios de otraRama a main*
+*Luego de la unión el HEAD apuntaria a main y otraRama*
+*Puede resultar en Fast-forward o Automatic o manual*
+
+resolver conflictos: \
+
+    - Mensaje:
+    ```
+    Auto-fusionando archivo.md
+    CONFLICTO (contenido): Conflicto de fusión en archivo.md
+    ```
+    - Se deben solver los siguientes comentarios en *archivo.md* en el editor de texto: *Se deben hacer las modificaciones necesarias segun lo que sequiere, al final no debe haber '<<<' ni '>>>' ni tampoco'===='*
+    ```
+    <<<<<<< HEAD
+    3. Buscar nuevos miembros que luchen por la justicia.
+    4. Buscar comida para ellos.
+    =======
+    3. Buscar nuevos miembros que sean super heroes
+    >>>>>>> nueva-rama
+    ```
+    - Solución:
+    ```
+    3. Buscar nuevos miembros que luchen por la justicia y sean super heroes.
+    4. Buscar comida para ellos.
+    ```
+    - Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. \
+    ```
+    git commit -am "resuelve conficto"
+    ```
+
+    # Agregar cambios y cargar al repositorio remoto
+    ```
+    git add .
+    git commit -m "comentario"
+    git pull
+    ```
 
 
 # ERRORES COMUNES
@@ -243,6 +318,10 @@ git pull
 - Las carpetas vacias no se pueden agregar al stage
 - Usar los alias facilita el trabajo
 - No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior. Se recomienda generar una rama desde ese commit y trabajar sobre ella y luego unir los cambios con la rama principal.
+- Versionamiento: v{1}.{2}.{3}: 
+    - 1. Gran cambio
+    - 2. Funcionalidad agregada o cambiada
+    - 3. Solución de bug
 
 # RECOMENDACIONES
 - Alias s para status short: 
@@ -253,7 +332,8 @@ git config --global alias.s "status --short"
 ```
 git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 ```
-- AL nombrar, o eliminar y volver a restaurar el archivo puede hacer que se pierda todo el historial de cambios del archivo, se recomienda usar los comandos de git: mv, rm
+- Al nombrar, o eliminar y volver a restaurar el archivo puede hacer que se pierda todo el historial de cambios del archivo, se recomienda usar los comandos de git: mv, rm
+- Para versionamiento es recomendable usar tag anotado: `git tag -a`
 
 ***
 # REFERENCIAS
