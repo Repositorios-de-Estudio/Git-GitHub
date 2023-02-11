@@ -26,9 +26,22 @@ Se usa para para guardar el estado actual de todos los archivos en el stage sin 
 Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan. Esto significa que el apuntador se mueve a ese commit.
 
 ## Rama
-Una rama o branch es una versión del repositorio desde un commit en especifico lo cual crea una bifurcación del repositorio el cual a su vez es como si fuera un repositorio a parte el cual sirve para realizar cambios para pruebas sin afectar la versión principal, luego se pueden introducir los cambios a otras ramas o a la rama principal.
+Una rama o branch es una versión del repositorio (temporal y espacial) desde un commit en especifico lo cual crea una bifurcación de este que a su vez es como si fuera un repositorio a parte,el cual sirve en la practica para desarrollar cosas diferentes que afecta el proyecto paralelamente pero los cambios se realizan sobre otra rama distinta a la principal. Luego se pueden introducir los cambios a otras ramas o a la rama principal con uniones.
 
 La rama principal es: **main**
+
+## MERGE (unión) de Rama y Conflictos
+
+Al unir las ramas a demas de introducir cambios a la rama principal, tambien se agregan los commits que se hayan hecho.
+
+- **Fast-forward**: Unión rapida se da cuando git no encuentra ningun cambio en la rama principal y los cambios pueden ser incorporados sin problema.
+
+- **Automaticas**: Unión automatica se da cuando git detecta que en la rama principal hubieron cambios que no estan presentes en la otra rama pero no se cruzan en los mismos lugares en los archivos con cambios en la otra rama.
+
+- **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre la rama principal y la otra rama. La solución del conflicto crea un commit llamada *Merge Commit*.
+
+
+
 
 ## CONFIGURACIÓN INICIAL
 
@@ -58,8 +71,10 @@ git add .
 git commit -m "Mi primer commit"
 ```
 
-No agregar al stage archivos y directorios en concreto: \
+Omitir o ignorar del stage archivos y directorios en concreto: \
 `Proyecto/.gitignore`
+*OMITE los cambios realiazos sobre los directorios, subdirectorios y archivos especificados* \
+*Estos archivos no se cargan al repositorio*
 
 Cración de alias global para comandos: \
 ` git config --global alias.{alitas} "{comando y opciones}"`
@@ -122,21 +137,21 @@ ver ramas del repositorio: \
 cambiar nombre de la rama: \
 `git branch -m nombreActual nombreFuturo`
 
-agregar cambios: \
+agregar archivo al stage: \
 `git add nombreArchivo`
 
-agregar todos los cambios: \
+agregar todos archivos y directorios al stage: \
 `git add .`
 
-agregar todos los cambios por tipo del directorio root: \
+agregar todos archivos .html desde el root al stage: \
 `git add *.html` \
 *Esto NO es recurrente sobre los subdirectiorios*
 
-agregar todos los cambios de un subdirectorio y su contenido: \
+agregar todos los subdirectorios y su contenido al stage: \
 `git add carpeta/` \
 *Esto SI es recurrente sobre los subdirectiorios*
 
-agregar todos los cambios por tipo en un subdirectorio: \
+agregar al stage subdirectorios con archivos .html: \
 `git add carpeta/*.html`
 
 agregar todos los cambios y crear commit (REQ:SG): \
@@ -180,6 +195,7 @@ descargar cambios sin haber hecho add . (REQ:SG): \
 
 descartar todos los cambios sin haber hecho commit (REQ:SG): \
 `git restore .`
+*descartar, omitir, ignorar*
 
 regresar repositorio al commit anterior (REQ:SG): \
 `git checkout -- .`
