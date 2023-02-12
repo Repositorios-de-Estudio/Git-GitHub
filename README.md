@@ -48,6 +48,26 @@ Al unir las ramas a demas de introducir cambios a la rama principal, tambien se 
 
 - **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre la rama principal y la otra rama. La solución del conflicto crea un commit llamada *Merge Commit*.
 
+## Rebase
+Similar a *merge*, sirve para *fusionar* cambios de una rama en otra con la diferencia que los commits introducidos puedes ser reorganizados para mantener un historial lineal, esto coloca el apuntador en el commit mas reciente de la rama de donde se tomaron los cambios. En la practica lo que hace rebase es agrega los cambios a la otra rama y luego agrega los cambios que se hicieron en esa rama de tal manera que al final se tiene como si la otra rama estuviera actualizada con la rama principal y ya tuviera los cambios adicionales de la misma rama (otra rama).
+
+Sirve para:
+- Ordenar commits
+- Corregir mensajes de los commits
+- Unir commits
+- Separar commits
+- Es util para evitar conflictos en un merge, si ya se hizo un rebase desde otraRama rebase main, al hacer merge con otraRama no habrian conflictos por lo que resulta en fast-foward.
+
+## Rebase manual
+Cuando se usa el comando `git rebase main`
+
+## Rebase interactivo
+De maneta interactiva en un mení se decide que hacer, las opciones son:
+- reword: renombrar commit
+- edit: editar commit, permite editar archivos del commit o agregar mas commits
+- squash: unir dos commits, seleccionado y git toma el anterior
+- drop: eliminar commit
+
 # Stash
 Se usa para guardar todos los cambios que aún no estan en el stage luego del último commit en otro lugar dejando de esta manera todo el repositorio en el mismo estado del último commit, posteriormente se pueden unir estos cambio, cuando se unen estos cambios del stash el stage los va a reconocer como cambios sin guardar. Se pueden crear stash con nombres y estos se apilan entre si.
 - Esto es util cuando se requiere coninuar con el trabajo tal cual como esta en el último commit.
@@ -67,9 +87,21 @@ Al unir los cambios desde el stash se pueden presentar conflictos de la misma ma
 
 - **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre. Se soluciona de la misma manera que un *Merge Commit*.
 
-# Rebase
+# Proyecto
+Es el area donde estan todos los archivos con los cuales se trabajan.
 
-## CONFIGURACIÓN INICIAL
+# Repositorio
+Es el lugar en la nube donde se almacenan un repositorio. Al ser centralizado y accesible se presta para poder hacer uso colaborativo, varias personas puedes cargar una copia y subir los cambios. Servicios en la nube colaborativos que usan como git: GitHub, GitLab, BitBucket, Gitosis
+
+## Pull
+Tare los datos y cambios del proyecto en el respositorio al proyecto local.
+
+## Push
+Envía los datos y cambios del proyecto local a el respositorio.
+
+## Push Request
+
+# CONFIGURACIÓN INICIAL
 
 Configuración de usuario como información para los commits:
 
@@ -124,6 +156,11 @@ Significa que el archivo tuvo que haber sido agregado al control de cambios (git
 2. **HEAD^**
 
 Es el commit anterior al actual, este se puede reemplazar por el hash de un commit.
+
+3. **HEAD~n**
+
+Toma los n ultimos commits, se puede reemplazar por un hash de commit.
+
 
 # Basicos de GIT
 
@@ -182,15 +219,37 @@ agregar al stage subdirectorios con archivos .html: \
 agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
 
-eliminar commit sin borrar cambios: \
+rebase interactivo: \
+`git rebase -i HEAD~4` \
+*eliminar, editar, unir - se quita la palabra pick y se coloca la opción que se desea*
+
+editar commit, agregar varios commits de uno existente: \
+```
+// usar la opción 'e' en rebase interactivo i 
+git rebase -i HEAD~2
+
+//reset al penultimo commit para mostrar los cambios antes de hacer el commit
+git reset HEAD^
+
+// agregar individualmente cada archivo al stage y realizar dos commits
+git add archivo1
+git commit -am "comentario 1"
+git add archivo2
+git commit -am "comentario 2"
+
+// para finalizar
+git rebase --continue
+```
+
+revertir commit sin borrar cambios: \
 `git reset --soft HEAD^` \
 *Regresa al commit señalado y automaticamente agrega los cambios realizados* \
 
-eliminar commit sin borrar cambios: \
+revertir commit sin borrar cambios: \
 `git reset --mixed HEAD^` \
 *Regresa al commit señalado y NO agrega los cambios realizados, quita todos los archivos agregados al stage que no estaban en ese commit por lo que será necesario hacer git add .* 
 
-eliminar commit y borrar todos los cambios: \
+revertir commit y borrar todos los cambios: \
 `git reset --hard HEAD^` \
 *Regresa al commit señalado y borra todos los cambios realizados*
 
@@ -224,6 +283,10 @@ descargar cambios sin haber hecho add . (REQ:SG): \
 descartar todos los cambios sin haber hecho commit (REQ:SG): \
 `git restore .`
 *descartar, omitir, ignorar*
+
+descartar cambios de un solo archivo: \
+`git checkout -- nombre-archivo`
+*Se restaura el archivo al ultimo commit*
 
 regresar repositorio al commit anterior (REQ:SG): \
 `git checkout -- .`
@@ -325,15 +388,32 @@ cambiar de rama: \
 `git checkout otraRama`
 *Solo se actualizan los archivos (REQ:SG), los que no estan en el stage siempre se veran hasta que los agreguemos al stage de alguna rama*
 
-unir ramas, introducir cambios de otraRama a main: 
+unir ramas, introducir a main desde otraRama: 
 ```
-git checkout master
+git checkout main
 git merge otraRama
 ```
 *Trae los cambios de otraRama a main - Luego de la unión el HEAD apuntaria a main y otraRama*
 *Puede resultar en Fast-forward o Automatic o manual*
 
-resolver conflictos: \
+fusionar cambios de main a otraRama:
+```
+git checkout otraRama
+git rebase main
+```
+*Esto deja el HEAD al ultimo commit agregado de las dos ramas*
+
+**evitar conflictos de merge**
+Se quieren traer los cambios de otraRama a main evitando conflictos. Para esto primero se agregan los cambios del main a otraRama con rebase desde otraRama y luego de hace el merge desde el main
+```
+git checkout otraRama
+git rebase main
+git checkout main
+git merge otraRama
+```
+
+
+**resolver conflictos de merge:**
 
     - Mensaje:
     ```
@@ -366,8 +446,8 @@ resolver conflictos: \
 
 - LF will be replaced by CRLF in archivoNombre, solución: \
 `git config core.autocrlf true`
-
 - Al revertir los cambios asegurarse de que todos los archivos esten en el stage para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
+- detached HEAD: `git checkout main`
 
 # NOTAS
 - Las carpetas vacias no se pueden agregar al stage
@@ -377,6 +457,8 @@ resolver conflictos: \
     1. Gran cambio
     2. Funcionalidad agregada o cambiada
     3. Solución de bug
+- WIP: Work In Progress
+- Rebase puede servir para actualizar el punto de separacion de una rama
 
 # RECOMENDACIONES
 - Alias s para status short: 
@@ -391,6 +473,7 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 - Para versionamiento es recomendable usar tag anotado: `git tag -a`
 - No se recomienda usar mas de un stash, es mejor opción usar ramas y es mas seguro
 - Se recomienda vaciar la pila de stash si ya se tiene el estado deseado en el proyecto
+- Evitar conflictos con merge al hacer rebase en la otraRama y luego si hacer merge desde main
 
 ***
 # REFERENCIAS
