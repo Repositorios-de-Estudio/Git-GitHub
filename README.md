@@ -32,7 +32,7 @@ Son etiquetas que ahcen referencia hace un commit y a todo el estado del proyect
     - Los tags no se cargan al repositorio con push, es necesario hacerlo manualmente
     - Con los tags en GitHub se puede descargar un .zip del proyecto en ese estado, no descarga la información de git.
 
-## Rama
+## Ramas
 Una rama o branch es una versión del repositorio (temporal y espacial) desde un commit en especifico lo cual crea una bifurcación de este que a su vez es como si fuera un repositorio a parte,el cual sirve en la practica para desarrollar cosas diferentes que afecta el proyecto paralelamente pero los cambios se realizan sobre otra rama distinta a la principal. Luego se pueden introducir los cambios a otras ramas o a la rama principal con uniones.
 
 - La rama principal es: **main**
@@ -54,7 +54,7 @@ Al unir las ramas a demas de introducir cambios a la rama principal, tambien se 
 Similar a *merge*, sirve para *fusionar* cambios de una rama en otra con la diferencia que los commits introducidos puedes ser reorganizados para mantener un historial lineal, esto coloca el apuntador en el commit mas reciente de la rama de donde se tomaron los cambios. En la practica lo que hace rebase es agrega los cambios a la otra rama y luego agrega los cambios que se hicieron en esa rama de tal manera que al final se tiene como si la otra rama estuviera actualizada con la rama principal y ya tuviera los cambios adicionales de la misma rama (otra rama).
 
 Sirve para:
-- Ordenar commits
+- Ordenar commitsq
 - Corregir mensajes de los commits
 - Unir commits
 - Separar commits
@@ -70,7 +70,7 @@ De maneta interactiva en un mení se decide que hacer, las opciones son:
 - squash: unir dos commits, seleccionado y git toma el anterior
 - drop: eliminar commit
 
-# Stash
+## Stash
 Se usa para guardar todos los cambios que aún no estan en el stage luego del último commit en otro lugar dejando de esta manera todo el repositorio en el mismo estado del último commit, posteriormente se pueden unir estos cambio, cuando se unen estos cambios del stash el stage los va a reconocer como cambios sin guardar. Se pueden crear stash con nombres y estos se apilan entre si.
 - Esto es util cuando se requiere coninuar con el trabajo tal cual como esta en el último commit.
 - Los stash pueden crearce con nombres
@@ -89,14 +89,17 @@ Al unir los cambios desde el stash se pueden presentar conflictos de la misma ma
 
 - **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre. Se soluciona de la misma manera que un *Merge Commit*.
 
-# Proyecto
+## Proyecto
 Es el area donde estan todos los archivos con los cuales se trabajan.
 
-# Repositorio
+## Repositorio
 Es el lugar en la nube donde se almacenan un repositorio. Al ser centralizado y accesible se presta para poder hacer uso colaborativo, varias personas puedes cargar una copia y subir los cambios. Servicios en la nube colaborativos que usan como git: GitHub, GitLab, BitBucket, Gitosis
 
 ## Pull
-Tare los datos y cambios del proyecto en el respositorio al proyecto local. Esto puede traer conflictos.
+Trae los datos, ferencias y en general todos los cambios del proyecto en el respositorio al proyecto local. Esto puede traer conflictos.
+- *Pull Request* o *Merge Request* Es la solicitud de un usuario que quiere unir los cambios de una rama secundaria con la rama principal del repositorio para que sea revisada y aprobada o rechazada, esta solicitud debe ser gestionada por un administrador.
+    - Aprobada
+    - Rechazada
 
 ## Push
 Envía los datos y cambios del proyecto local a el respositorio.
@@ -106,6 +109,9 @@ Se da cuando al hacer un pull no se puede lograr *fast-forward* y es necesario u
 - Mensaje: *fatal: No es posible hacer fast-forward, abortando*
 
 
+## Fetch
+Actualiza solo las referencias del proyecto desde el repositorio, esto no descarga archvios, solo cambios relacionados con el historial. Esto sirve para saber si hay cambios evitando asi que en caso de haber cambios se tenga que hacer un merge.
+
 ***
 
 # GitHub
@@ -113,6 +119,37 @@ Se da cuando al hacer un pull no se puede lograr *fast-forward* y es necesario u
 1. En los commtis o commits de los tags se puede ingresar, ver los cambios ya gregar comentarios. Estos comentarios pueden contener archivos y nombrar a alguien.
 2. Se pueden usar Releases y Pre-Releases para publicar grandes cambios, esto tambien crea una url para cada Release. Se puede colocar un Release en particular como el último Release.
 3. Se pueden editar el tag para agregar un mensaje y así crear un Realase. Tambien se puede hacer con el bonton de Create Release from Tag.
+4. Se puede realizar Fork de otros repositorios, lo cual crea un clon completo del repositorio a nuestra cuenta para poder ser modificado como propio.
+5. En el repositorio se pueden ver los Pull Request e Issues
+    - Desde Github: Crear archivo > seleccionar new branch for this commit y start a pull request > propose new file >> seleccionar rama
+        - Se acepta: Merge commit (unir y crear un commit), Squash and merge (se fusionan los cambios con el ultimo commit y hace merge), Rebase and merge.
+    - Locamente
+6. En Issues se pueden crear labels para ayudar a indentificar el tipo de problemas, Issues>Labels>New Label
+7. Los Actions, son acciones que se pueden automatizar como por ejemplo para hacer despliegue continuo
+8. Porjects tiene lo necesario para toda la parte de planeación, no sería necesario usar mas herramientas
+9. Wiki permite crear documentación al proyecto en el repositorio
+10. Security permite aisgnar a ciertos usuarios para revisar la seguridad de la aplicación, tambien permite crear reportes y verlos en este apartado
+11. En Ingights se pueden ver metricas como: usuarios quecontribuyen, cantidad de commits por usuario, ancho de banda usado, cantidad de forks realizados, frecuancia de codigo x dia, dependecias (librerias) que se usan en el repositorio
+12. Con *Go to file* pueden ver todos los archivos e ir rapidamente a alguno
+13. Se puede cambiar entre ramas con Branches
+14. Opciones de los archivos:
+- Crear
+- Eliminar
+- Editar
+- Copiar contenido RAW
+- Con *Goto line* ir a una linea del archivo
+- Copiar path (relativo)
+- Copiar path permalink (url completa en github.com)
+- RAW - ver contido RAW
+- Blabe - que cambios ha sufrido el archivo y quien hizo los cambios
+    - View Blabe para colocar todo el respositorio en un commit especifico
+- Hisotorial - ver los commits que ha tenido y sus cambios 
+
+# Flujo de Trabajo GitHub (basico)
+1. Procurar no hacer cambios directamente sobre main, se deberia tener otras ramas para hacer cambios
+2. Usar Pull Request y asignar a un equipo de trabajo de hacer estas revisiones, luego si unir cambios
+    - Es bueno discutir y comentar los cambios antes de aprobar o rechazar
+3. Luego de realizar la unón borrar la rama secundaria
 
 ***
 
@@ -197,7 +234,12 @@ ver fuentes remotas: \
 
 traer cambios del repositorio remoto al local: \
 `git pull` \
-*Esto solo trae los cambios de la rama en la que se esta localmente*
+*Esto solo trae los cambios de la rama en la que se esta localmente* \
+*El HEAD quedaria al mismo nivel que el origin si no hay conflictos*
+
+traer refererencias del repositorio remoto al local: \
+`git fetch` \
+*En caso de haber cambios el HEAD quedaria por detras de origin*
 
 hacer git pull con opción rebase true: \
 ```
@@ -268,7 +310,7 @@ agregar al stage subdirectorios con archivos .html: \
 agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
 
-rebase interactivo: \
+rebase interactivo (REQ:SG): \
 `git rebase -i HEAD~4` \
 *eliminar, editar, unir - se quita la palabra pick y se coloca la opción que se desea*
 
@@ -531,5 +573,10 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 ***
 # REFERENCIAS
 - [Documentación Oficial](https://git-scm.com/docs)
+- [Documentación Markdown](https://www.markdownguide.org/basic-syntax/)
+- [Tutorial Inbteractivo MD](https://www.markdowntutorial.com/lesson/1/)
+- [Documentación GitHub sobre funcionalidades](https://docs.github.com/es)
+- [Emojis en MD](https://www.webfx.com/tools/emoji-cheat-sheet/)
+- [Flujo de Trabajo / Lineamientos GitHub](https://docs.github.com/es/get-started/quickstart/github-flow)
 
-
+![GitHubLogo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
