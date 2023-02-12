@@ -551,6 +551,7 @@ git merge otraRama
     3. Solución de bug
 - WIP: Work In Progress
 - Rebase puede servir para actualizar el punto de separacion de una rama
+- Se puede usar fetch antes para saber si hay cambios
 
 ***
 
