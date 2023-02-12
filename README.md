@@ -29,6 +29,8 @@ Regresar a un commit anterior restauraria todos los archivos a ese estado y elim
 ## Tags
 Son etiquetas que ahcen referencia hace un commit y a todo el estado del proyecto en ese punto.
     - Los tags se ven en el log, el tag siempre va a apuntar al commit donde se crea el tag
+    - Los tags no se cargan al repositorio con push, es necesario hacerlo manualmente
+    - Con los tags en GitHub se puede descargar un .zip del proyecto en ese estado, no descarga la información de git.
 
 ## Rama
 Una rama o branch es una versión del repositorio (temporal y espacial) desde un commit en especifico lo cual crea una bifurcación de este que a su vez es como si fuera un repositorio a parte,el cual sirve en la practica para desarrollar cosas diferentes que afecta el proyecto paralelamente pero los cambios se realizan sobre otra rama distinta a la principal. Luego se pueden introducir los cambios a otras ramas o a la rama principal con uniones.
@@ -94,12 +96,25 @@ Es el area donde estan todos los archivos con los cuales se trabajan.
 Es el lugar en la nube donde se almacenan un repositorio. Al ser centralizado y accesible se presta para poder hacer uso colaborativo, varias personas puedes cargar una copia y subir los cambios. Servicios en la nube colaborativos que usan como git: GitHub, GitLab, BitBucket, Gitosis
 
 ## Pull
-Tare los datos y cambios del proyecto en el respositorio al proyecto local.
+Tare los datos y cambios del proyecto en el respositorio al proyecto local. Esto puede traer conflictos.
 
 ## Push
 Envía los datos y cambios del proyecto local a el respositorio.
 
-## Push Request
+## Pull Rebase
+Se da cuando al hacer un pull no se puede lograr *fast-forward* y es necesario usar pull rebase.
+- Mensaje: *fatal: No es posible hacer fast-forward, abortando*
+
+
+***
+
+# GitHub
+
+1. En los commtis o commits de los tags se puede ingresar, ver los cambios ya gregar comentarios. Estos comentarios pueden contener archivos y nombrar a alguien.
+2. Se pueden usar Releases y Pre-Releases para publicar grandes cambios, esto tambien crea una url para cada Release. Se puede colocar un Release en particular como el último Release.
+3. Se pueden editar el tag para agregar un mensaje y así crear un Realase. Tambien se puede hacer con el bonton de Create Release from Tag.
+
+***
 
 # CONFIGURACIÓN INICIAL
 
@@ -129,6 +144,13 @@ git add .
 git commit -m "Mi primer commit"
 ```
 
+push de un proyecto existente un repositorio en GitHub:
+```
+git remote add origin git@github.com:Repositorios-blblabla/nuevoRepo.git
+git branch -M main
+git push -u origin main
+```
+
 Omitir o ignorar del stage archivos y directorios en concreto: \
 `Proyecto/.gitignore` \
 *OMITE los cambios realiazos sobre los directorios, subdirectorios y archivos especificados* \
@@ -140,9 +162,14 @@ Cración de alias global para comandos: \
 ejemplo para usar `git s` como `git status --shot`:  \
 ` git config --global alias.s "status --short"`
 
+**ANAÑIR CONFIGURACIÓN PREDETERMINADA PARA UNIR CAMBIOS CUANDO HAY UN PULL:** \
+En caso de conflictos será necesario resolverlos igual que con *merge*.
+```
+git config --global pull.rebase true 
+```
+
 **VER Y CAMBIAR CONFIGURACIÓN GLOBAL:** \
 `git config --global -e`
-
 
 ***
 # COMANDOS DE GIT
@@ -164,13 +191,35 @@ Toma los n ultimos commits, se puede reemplazar por un hash de commit.
 
 # Basicos de GIT
 
+ver fuentes remotas: \
+`git remote -v   ` \
+*fetch: de donde trae los datos. push: a donde sube los datos*
+
 traer cambios del repositorio remoto al local: \
 `git pull` \
 *Esto solo trae los cambios de la rama en la que se esta localmente*
 
-cargar o enviar cambios del repositorio local al remoto: \
+hacer git pull con opción rebase true: \
+```
+// habilitar localmente o global git pull rebase
+git config pull.rebase true
+git pull
+// se solucionan los conflictos, luego se commita
+git commit -am "solucion de conflictos"
+// git status muestra que esta en progeso un rebase, finalizar con
+git rebase --continue
+```
+
+hacer push del proyecto local al remoto: \
 `git push` \
 *Esto solo envia los cambios de la rama en la que se esta localmente*
+
+pushea todos los tags locales: \
+`git push --tags`
+
+hacer push del proyecto local al remoto de una rama: \
+`git push -u origin rama` \
+*esto solo se hace una vez, la proxima vez solo es necesario git push*
 
 uso de comandos con palabras completa: \
 `git --palabra`
@@ -448,6 +497,7 @@ git merge otraRama
 `git config core.autocrlf true`
 - Al revertir los cambios asegurarse de que todos los archivos esten en el stage para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
 - detached HEAD: `git checkout main`
+- Se mmuestra el mensaje *warning: Pulling without specifying how to reconcile divergent branches is discouraged ...* Se soluciona agregando la configuración de **ANAÑIR CONFIGURACIÓN PREDETERMINADA PARA UNIR CAMBIOS CUANDO HAY UN PULL:**.
 
 # NOTAS
 - Las carpetas vacias no se pueden agregar al stage
@@ -459,6 +509,8 @@ git merge otraRama
     3. Solución de bug
 - WIP: Work In Progress
 - Rebase puede servir para actualizar el punto de separacion de una rama
+
+***
 
 # RECOMENDACIONES
 - Alias s para status short: 
@@ -474,6 +526,7 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 - No se recomienda usar mas de un stash, es mejor opción usar ramas y es mas seguro
 - Se recomienda vaciar la pila de stash si ya se tiene el estado deseado en el proyecto
 - Evitar conflictos con merge al hacer rebase en la otraRama y luego si hacer merge desde main
+- Al hacer querer hacer push cuando hay cambios locales y en la nube, es necesario primero hacer pull y resolver los conflictos para luego hacer pull
 
 ***
 # REFERENCIAS
