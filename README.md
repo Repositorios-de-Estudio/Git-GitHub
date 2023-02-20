@@ -156,13 +156,17 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
 - Hisotorial - ver los commits que ha tenido y sus cambios 
 
 # Flujo de Trabajo GitHub (basico)
-1. Procurar no hacer cambios directamente sobre main, se deberia tener otras ramas para hacer cambios
+1. No hacer cambios sobre main
     - cada miembro del equipo crea su propia rama (feature branch)
     - cada miembro puede ver el tabajo del resto con `git checkout rama-otro`
-2. Usar Pull Request y asignar a un equipo de trabajo de hacer estas revisiones, luego si unir cambios
-    - Es bueno discutir y comentar los cambios antes de aprobar o rechazar
+2. Trabajo Colaborativo
+    - Tener colaboradores
+    - Usar el Milestone e Issues
+    - Usar Usar Pull Request
+    - Asignar a un equipo de trabajo de hacer estas revisiones del pull request
+    - Discutir y comentar los cambios antes de aprobar o rechazar
     - Preferible no hacer cambios en la rama de otro miembro
-3. Luego de realizar la unón borrar la rama secundaria
+3. Luego de realizar la unión de cambios borrar la rama secundaria
 
 ## Clone
 Comando de Git que se utiliza para apuntar a un repositorio existente y crear un clon o una copia del repositorio de remoto en nuestra maquina local.
@@ -182,7 +186,36 @@ Crea un clon de un repositorio remoto existente en GitHub a nuestra cuenta como 
 
 
 ## Colaboraciones
-Se pueden agregar otros usuarios de GitHub como colaboradores, de tal manera como si los colaboradores fueran los propietarios del repositorio.
+Se pueden agregar otros usuarios de GitHub como colaboradores, de tal manera que los colaboradores tienen los mismos privilegios que los propietarios del repositorio/codigo pero no sobre sus configuraciones.
+- para agregar colaboradores
+    - settings > collaborator & teams > 
+
+## Milestone (Hitos)
+Agrupa varios issues en Milestone segun los criterios que se le den, sirve para hacer mas facil hacer el seguimiento de los issues en un proyecto
+- En la pestaña Milestones creados y dentro todos los issues que lo referencian
+- Muestra el % del issues resueltos del Milestone
+- se puede agregar fecha al milestone para tener presente la fecha de terminacion
+    - editar > due date > save
+
+## Labels (etiquetas)
+Etiquetas que ayudan a organiar los issues, se pueden editar, eliminar y agregar
+- En el template de los issues se pueden agregar varios labels que se asignan automaticamente cuando se crea con el template
+
+## Issues
+Son todas aquellas cosas que pueden ser: problemas reportados, preguntas generale y solicitud de nuevas caracteristicas
+- se pueden eliminar (NO RECOMENDADO)
+- se pueden asignar a un miembro
+- se pueden ordenar y filtrar
+- se pueden agregar labels y milestones
+- si el issue tiene opciones con checkbox se pueden crear issues nuevos a partir de estos
+- los issues no se puden borrar
+- se pueden cerrar/resolver issues con comentarios
+- se pueden relacionar issues con commits
+    - se agrega un comentario de la linea que cambio en el comit y se pone #n del issue
+    - se puede agregar en el comentario del issue el hash del issue
+- se pueden cerrar/resolver issues con commits
+    - cuando se haga el commit colocar "Fixes #n: mensaje": `git commit -am "Fixes #4: mensaje"`
+- se pueden agregar templates a los issues, configuracion > issues > set up template >> Add Template >> se edita >> propose changes > Commit changes
 
 ***
 
@@ -351,6 +384,9 @@ agregar al stage subdirectorios con archivos .html: \
 
 agregar todos los cambios y crear commit (REQ:SG): \
 `git commit -am "commit"`
+
+agregar commit y relacionar con un issue (REQ:SG): \
+`git commit -am "Fixes #n: mensaje"`
 
 rebase interactivo (REQ:SG): \
 `git rebase -i HEAD~4` \
@@ -700,5 +736,6 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 - [Documentación GitHub sobre funcionalidades](https://docs.github.com/es)
 - [Emojis en MD](https://www.webfx.com/tools/emoji-cheat-sheet/)
 - [Flujo de Trabajo / Lineamientos GitHub](https://docs.github.com/es/get-started/quickstart/github-flow)
+- [Milestone GitHub](https://docs.github.com/es/issues/tracking-your-work-with-issues/about-issues)
 
 ![GitHubLogo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
