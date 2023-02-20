@@ -26,6 +26,9 @@ Se usa para para guardar el estado actual de todos los archivos en el stage sin 
 
 Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan. Esto significa que el apuntador se mueve a ese commit.
 
+# Upstream
+Repositorio original del cual se hizo fork
+
 ## Tags
 Son etiquetas que ahcen referencia hace un commit y a todo el estado del proyecto en ese punto.
     - Los tags se ven en el log, el tag siempre va a apuntar al commit donde se crea el tag
@@ -112,6 +115,12 @@ Se da cuando al hacer un pull no se puede lograr *fast-forward* y es necesario u
 ## Fetch
 Actualiza solo las referencias del proyecto desde el repositorio, esto no descarga archvios, solo cambios relacionados con el historial. Esto sirve para saber si hay cambios evitando asi que en caso de haber cambios se tenga que hacer un merge.
 
+# Soporte Legacy
+Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambios o dar soporte adicional, esta forma de soporte se llama Soporte Legacy. Para esto se recomienda
+- crear otra rama desde main
+- crear tags para llevar control de los releases
+    - tambien sirve en caso de que se borre la rama, se pueden ver los cambios con el tag que apunta a la rama o con el zip que se genera
+
 ***
 
 # GitHub
@@ -121,6 +130,7 @@ Actualiza solo las referencias del proyecto desde el repositorio, esto no descar
 3. Se pueden editar el tag para agregar un mensaje y así crear un Realase. Tambien se puede hacer con el bonton de Create Release from Tag.
 4. Se puede realizar Fork de otros repositorios
 - Para agregar cambios al repositorio original, desde Github se va a Contribuir > Abrir Pull Request >> seleccionar la rama de origen y la rama de destino
+- en Github existe la opcion de Fetch upstream > **Fetch and merge** cuando el repositorio original tiene cambios, otra alternativa es hacerlo manualmente
 5. En el repositorio se pueden ver los Pull Request e Issues
     - Desde Github: Crear archivo > seleccionar new branch for this commit y start a pull request > propose new file >> seleccionar rama
         - Se acepta: Merge commit (unir y crear un commit), Squash and merge (se fusionan los cambios con el ultimo commit y hace merge), Rebase and merge.
@@ -147,8 +157,11 @@ Actualiza solo las referencias del proyecto desde el repositorio, esto no descar
 
 # Flujo de Trabajo GitHub (basico)
 1. Procurar no hacer cambios directamente sobre main, se deberia tener otras ramas para hacer cambios
+    - cada miembro del equipo crea su propia rama (feature branch)
+    - cada miembro puede ver el tabajo del resto con `git checkout rama-otro`
 2. Usar Pull Request y asignar a un equipo de trabajo de hacer estas revisiones, luego si unir cambios
     - Es bueno discutir y comentar los cambios antes de aprobar o rechazar
+    - Preferible no hacer cambios en la rama de otro miembro
 3. Luego de realizar la unón borrar la rama secundaria
 
 ## Clone
@@ -160,6 +173,13 @@ Comando de Git que se utiliza para apuntar a un repositorio existente y crear un
 Crea un clon de un repositorio remoto existente en GitHub a nuestra cuenta como si fuera otra rama (o una version alternativa) para poder ser modificado como propio, esto tambien contiene todos los commits e historial que se haya hecho con el repositorio.
 
 - Con Pull Request se pueden enviar los cambios realizados al repositorio original para que sean revisados por los dueños
+- En las solicitudes de Pull Request se pueden agregar comentarios tanto del dueño del repositorio como del que hizo el fork
+- Estados por colores cuando de los solicitudes que tengo
+    1. Verde: Pull Request solicitado
+    2. Morado: Pull Request ya aceptado
+    3. Rojo: Pull Request rechazado
+- Cuando yo tengo un fork con cambios pero luego de un tiempo el upstream tiene nuevos commits y quiero agregar esos cambios debo agregar cambios del upstream o en github hacer fetch upstream
+
 
 ## Colaboraciones
 Se pueden agregar otros usuarios de GitHub como colaboradores, de tal manera como si los colaboradores fueran los propietarios del repositorio.
@@ -209,14 +229,22 @@ Omitir o ignorar del stage archivos y directorios en concreto: \
 Cración de alias global para comandos: \
 ` git config --global alias.{alitas} "{comando y opciones}"`
 
-ejemplo para usar `git s` como `git status --shot`:  \
-` git config --global alias.s "status --short"`
+ejemplo para usar `git s` como `git status --shot -b`:  \
+` git config --global alias.s "status --short -b"`
 
 **ANAÑIR CONFIGURACIÓN PREDETERMINADA PARA UNIR CAMBIOS CUANDO HAY UN PULL:** \
 En caso de conflictos será necesario resolverlos igual que con *merge*.
 ```
 git config --global pull.rebase true 
 ```
+
+**AÑADIR FIRMA A COMMITS**
+Cuando se tienen llaves SSH se pueden firmara para que los commits salgan con cuenta **Verified**
+```
+git config --global user.signingKey LLAVE-ID
+config --global commit.gpgsign true
+```
+*Ver mas en SSH keys en Gitbub.com*
 
 **VER Y CAMBIAR CONFIGURACIÓN GLOBAL:** \
 `git config --global -e`
@@ -269,12 +297,13 @@ hacer push del proyecto local al remoto: \
 `git push` \
 *Esto solo envia los cambios de la rama en la que se esta localmente*
 
-pushea todos los tags locales: \
-`git push --tags`
-
 hacer push del proyecto local al remoto de una rama: \
 `git push -u origin rama` \
 *esto solo se hace una vez, la proxima vez solo es necesario git push*
+
+limpiar todas las referencias locales con las remotas: \
+`git remote prune origin ` \
+*Util cuando se han borrado ramas remotamente y local y se desea limpiar basura*
 
 uso de comandos con palabras completa: \
 `git --palabra`
@@ -298,8 +327,8 @@ eliminar alias: \
 estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage: \
 `git status`
 
-git status con solo los cambios presentes: \
-`git status --short` \
+git status con solo los cambios presentes y rama actual: \
+`git status --short -b` \
 *Modificado: M - Eliminado: D - Sin seguimiento: U, ?? - Añadido: A - Renombrado: R*  \
 *Color verde: ESTA en el stage - Color verde: NO esta en el stage*
 
@@ -363,7 +392,8 @@ revertir los cambios eliminados con reset --hard: \
 *Se regresa al estado de un estado anterior, se usa reflog para ver todos los registros y escocoger uno anterior a la eliminación que se quiere restaurar*
 
 revertir commit:
-`git revert `
+`git revert ` \
+*Se usa el hash del commit anterior al que se quiere revertir*
 
 renombrar ultimo commit: \
 `git --amend -m "Comentario correcto"`
@@ -388,12 +418,19 @@ descartar todos los cambios sin haber hecho commit (REQ:SG): \
 `git restore .`
 *descartar, omitir, ignorar*
 
-descartar cambios de un solo archivo: \
+revertir cambios de un solo archivo: \
 `git checkout -- nombre-archivo`
 *Se restaura el archivo al ultimo commit*
 
-regresar repositorio al commit anterior (REQ:SG): \
+revertir repositorio al commit anterior (REQ:SG): \
 `git checkout -- .`
+
+revertir cambios de un solo archivo a un commit anterior: \
+```
+git checkout hash-commit nombre-archivo
+git commit -am "up"
+```
+*Se restaura el archivo al commit*
 
 diferencia entre archivos estado actual vs ultimo commit:
 `git diff` \
@@ -417,6 +454,9 @@ Ver todos los registros:  \
 logs con grafico para ver commits y ramas: \
 `git log --oneline --decorate --all --graph`
 
+pushea todos los tags locales: \
+`git push --tags`
+
 ver tags: \
 `git tag`
 
@@ -428,7 +468,7 @@ eliminar tag: \
 
 crear tag anotado: \
 `git tag -a v1.0.0 -m "Version mensaje"` \
-*El mensaje del tag no se ve en el log, solo se ve el tag*
+*El mensaje del tag no se ve en el log, solo se ve el tag. En Github editar tag para usar como release*
 
 agregar a tag anotado a commit: \
 `git tag -a v0.0.0 hash-del-commit -m "Version mensaje"`
@@ -475,18 +515,69 @@ ver ramas del repositorio: \
 `git branch`
 *Indica * la rama actual*
 
-eliminar rama: \
-`git branch -d otraRama`
+actualizar y traer todo de todas las ramas: \
+```
+git fetch --all
+git pull --all
+git checkout nuevaRAMA 
+```
+*Solamente usar cuando se tienen nuevas ramas remotamente, luego se requiere cambiar a la rama nueva manualmente*
+
+ver todas ramas del repositorio remoto: \
+```
+git fetch
+git branch -a
+```
+
+eliminar rama local: 
+```
+git branch -d otraRama
+
+// para informar remotamente que se elimino
+git push origin :rama-kitkat  
+
+// para eliminar remotamente
+git push origin -d otraRama
+```
+
+eliminar rama remota: 
+```
+- eliminar rama en github
+git remote prune origin
+// luego eliminar la rama localmente
+git branch -d otraRama
+```
 
 cambiar nombre de la rama: \
 `git branch -m nombreActual nombreFuturo`
 *Si hubieran cambios sin unir a otra rama git lo alerta*
+
+recuperar rama eliminada desde un tag: \
+```
+git tag
+git checkout vN.N.N
+git checkout -b otraRama
+git push --set-upstream origin otraRama
+```
+
+recuperar rama eliminada en github desde un tag: \
+```
+- ir a tags
+- ir al tag en cuestion
+- ir a <> Code, al ir a Code en las ramas saldrá el tag como si fuera la rama
+- ir a ramas y crear la rama a partir del tag
+// actulizar repositorio local
+git fetch --all
+```
 
 crear rama: \
 `git branch otraRama`
 
 crear rama y moverse a esa rama: \
 `git checkout -b otraRama`
+
+cargar rama al repositorio: \
+`git push --set-upstream origin rama-nueva`
 
 cambiar de rama: \
 `git checkout otraRama`
@@ -545,6 +636,22 @@ git merge otraRama
     git pull
     ```
 
+# Trabajo con Foks
+
+agregar cambios nuevos del upstream (REQ:SG)
+```
+// agregar direccion del upstream
+git remote add upstream <repo original>
+
+// comprobar (upstream)
+git remote -v
+
+// hacer fetch para aregar cambios nuevos del upstream\
+git fetch upstream nombre-rama
+git pull
+
+// pueden surgin conflicos luego de hacer el fetch
+```
 
 # ERRORES COMUNES
 
@@ -571,7 +678,7 @@ git merge otraRama
 # RECOMENDACIONES
 - Alias s para status short: 
 ```
-git config --global alias.s "status --short"
+git config --global alias.s "status --short -b"
 ```
 - Alias lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD
 ```
@@ -583,6 +690,7 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 - Se recomienda vaciar la pila de stash si ya se tiene el estado deseado en el proyecto
 - Evitar conflictos con merge al hacer rebase en la otraRama y luego si hacer merge desde main
 - Al hacer querer hacer push cuando hay cambios locales y en la nube, es necesario primero hacer pull y resolver los conflictos para luego hacer pull
+- limpiar todas las referencias cuando se tiene muhca basura con `git remote prune origin `
 
 ***
 # REFERENCIAS
