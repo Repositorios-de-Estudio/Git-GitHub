@@ -119,11 +119,11 @@ Actualiza solo las referencias del proyecto desde el repositorio, esto no descar
 1. En los commtis o commits de los tags se puede ingresar, ver los cambios ya gregar comentarios. Estos comentarios pueden contener archivos y nombrar a alguien.
 2. Se pueden usar Releases y Pre-Releases para publicar grandes cambios, esto tambien crea una url para cada Release. Se puede colocar un Release en particular como el último Release.
 3. Se pueden editar el tag para agregar un mensaje y así crear un Realase. Tambien se puede hacer con el bonton de Create Release from Tag.
-4. Se puede realizar Fork de otros repositorios, lo cual crea un clon completo del repositorio a nuestra cuenta para poder ser modificado como propio.
+4. Se puede realizar Fork de otros repositorios
+- Para agregar cambios al repositorio original, desde Github se va a Contribuir > Abrir Pull Request >> seleccionar la rama de origen y la rama de destino
 5. En el repositorio se pueden ver los Pull Request e Issues
     - Desde Github: Crear archivo > seleccionar new branch for this commit y start a pull request > propose new file >> seleccionar rama
         - Se acepta: Merge commit (unir y crear un commit), Squash and merge (se fusionan los cambios con el ultimo commit y hace merge), Rebase and merge.
-    - Locamente
 6. En Issues se pueden crear labels para ayudar a indentificar el tipo de problemas, Issues>Labels>New Label
 7. Los Actions, son acciones que se pueden automatizar como por ejemplo para hacer despliegue continuo
 8. Porjects tiene lo necesario para toda la parte de planeación, no sería necesario usar mas herramientas
@@ -150,6 +150,19 @@ Actualiza solo las referencias del proyecto desde el repositorio, esto no descar
 2. Usar Pull Request y asignar a un equipo de trabajo de hacer estas revisiones, luego si unir cambios
     - Es bueno discutir y comentar los cambios antes de aprobar o rechazar
 3. Luego de realizar la unón borrar la rama secundaria
+
+## Clone
+Comando de Git que se utiliza para apuntar a un repositorio existente y crear un clon o una copia del repositorio de remoto en nuestra maquina local.
+
+- Si es el repositorio el publico podriamos clonar el repositorio, modificarlo, agregar commits pero no podria hacer un push
+
+## Fork
+Crea un clon de un repositorio remoto existente en GitHub a nuestra cuenta como si fuera otra rama (o una version alternativa) para poder ser modificado como propio, esto tambien contiene todos los commits e historial que se haya hecho con el repositorio.
+
+- Con Pull Request se pueden enviar los cambios realizados al repositorio original para que sean revisados por los dueños
+
+## Colaboraciones
+Se pueden agregar otros usuarios de GitHub como colaboradores, de tal manera como si los colaboradores fueran los propietarios del repositorio.
 
 ***
 
