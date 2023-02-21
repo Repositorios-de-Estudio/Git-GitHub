@@ -26,7 +26,7 @@ Se usa para para guardar el estado actual de todos los archivos en el stage sin 
 
 Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan. Esto significa que el apuntador se mueve a ese commit.
 
-# Upstream
+## Upstream
 Repositorio original del cual se hizo fork
 
 ## Tags
@@ -44,7 +44,6 @@ Una rama o branch es una versión del repositorio (temporal y espacial) desde un
 - Cuando hay un commit nuevo el HEAD apuntaria a la rama con de ese commit
 
 ## MERGE (unión) de Ramas y Conflictos
-
 Al unir las ramas a demas de introducir cambios a la rama principal, tambien se agregan los commits que se hayan hecho. Git siempre intentará resolver el merge de manera automatica.
 
 - **Fast-forward**: Unión rapida se da cuando git no encuentra ningun commit en la rama principal y los cambios de la otra rama pueden ser incorporados sin problema.
@@ -83,7 +82,6 @@ Se usa para guardar todos los cambios que aún no estan en el stage luego del ú
 - Cuando se restaura un stash puede ocasionar conflictos, por lo que se deben solucionar
 
 ## (POP) unión desde Stash y Conflictos
-
 Al unir los cambios desde el stash se pueden presentar conflictos de la misma manera que en el merge de ramas. Git siempre intentará resolver el merge de manera automatica.
 
 - **Fast-forward**: Unión rapida se da cuando git no encuentra ningun conlicto.
@@ -124,7 +122,6 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
 ***
 
 # GitHub
-
 1. En los commtis o commits de los tags se puede ingresar, ver los cambios ya gregar comentarios. Estos comentarios pueden contener archivos y nombrar a alguien.
 2. Se pueden usar Releases y Pre-Releases para publicar grandes cambios, esto tambien crea una url para cada Release. Se puede colocar un Release en particular como el último Release.
 3. Se pueden editar el tag para agregar un mensaje y así crear un Realase. Tambien se puede hacer con el bonton de Create Release from Tag.
@@ -184,8 +181,44 @@ Crea un clon de un repositorio remoto existente en GitHub a nuestra cuenta como 
     3. Rojo: Pull Request rechazado
 - Cuando yo tengo un fork con cambios pero luego de un tiempo el upstream tiene nuevos commits y quiero agregar esos cambios debo agregar cambios del upstream o en github hacer fetch upstream
 
+## Organizaciones
+**Muy util para colaboraciones** las organizaciones son cuentas compartidas, donde se agregan repositorios y colaboradores, estos colaboradores pueden estar en varias organizaciones a su vez. 
+- es como si fuera una cuenta independiente compartida
+- util para tener un espacio donde van a haber muchos repositorios y se quieren usar los mismos equipos de trabajo o cambiarlos
+    - en caso contrario cada que se crea un repositorio se debe agregar a cada miembro siempre a cada repositorio y configurar sus roles
+- Cada miembro inicia sesion con su cuenta persola para acceder a la orgnizacion
+- las organizaciones tienen roles y se pueden definir
+- se pueden invitar a miembros para colaborar
+- util para limitar el trabajo en alguien nuevo que colabora en un proyecto
+- se pueden quitar limitaciones o potenciar caracteristicas pagando las opciones en Github
+- se puede personalizar el perfil de la organizacion
 
-## Colaboraciones
+## Teams (de organizaciones)
+Son equipos de trabajo como si fuera una organización pequeña que se crean dentro de la organización para facilitar la comunicación, se deberian crear los equipos de trabajo que tiene la empresa en la vida real: desarrolladores jr, desarrolladores sr, testers,...etc \
+
+Para habilitar las opciones primero se debe
+1. crear la organizacion
+2. crear los teams dentro de la organizaciión
+3. dentro del team ir a repositories > add repositorio
+4. asi se asignará el team al repositorio
+
+
+**Opciones disponibles** \
+- se pueden referenciar como si fuera un miembro
+- se pueden invitar a personas de todo github
+    - osea que no necesariamente tiene que estar dentro de la Organizacion
+- se pueden agregar permisos a los miembros del team
+- se pueden crear discusiones y publicaciones
+- dentro de un team se pueden agregar teams
+- los permisos del team se heran a todos los miembros
+- permisos del team en un repositorio:
+    - read (clonal y comentar)
+    - triage (read con algunas limitaciones)
+    - write (read+pull request)
+    - maintain (read+write)
+    - admin (todos los permisos y configuraciones)
+
+## Colaboradores
 Se pueden agregar otros usuarios de GitHub como colaboradores, de tal manera que los colaboradores tienen los mismos privilegios que los propietarios del repositorio/codigo pero no sobre sus configuraciones.
 - para agregar colaboradores
     - settings > collaborator & teams > 
@@ -216,6 +249,45 @@ Son todas aquellas cosas que pueden ser: problemas reportados, preguntas general
 - se pueden cerrar/resolver issues con commits
     - cuando se haga el commit colocar "Fixes #n: mensaje": `git commit -am "Fixes #4: mensaje"`
 - se pueden agregar templates a los issues, configuracion > issues > set up template >> Add Template >> se edita >> propose changes > Commit changes
+
+## Wikis
+Permite tener documentación o lugar como si fuera una pagina web. Puede usar el wiki de su repositorio para compartir contenido.
+- Solo disponible con GitHub de pago (febrero 2023)
+
+## Proyectos
+Funcionalidad similar a JIRA donde se tiene una colección de elementos (su estado0 se mantiene actualizado), con los proyectos se pueden realizar el seguimiento de incidencias, solicitudes de incorporación de cambios e ideas/comentarios. Se pueden agregar campos personalizados y vistas (tablero, tabla).
+- se pueden agregar estados personalizados
+- se pueden crear items
+- se puede convetir un item en un issue en un repositorio
+- se puede relacionar un item con un issue existente
+
+## GitHub Pages
+GitHub Pages es un servicio de alojamiento de sitio estático que toma archivos HTML, Markdown, CSS y JavaScript desde un repositorio en GitHub para permitir publicar un sitio web, se puede desplegar el sitio siempre y cuando no requiera codigo de servidor.
+- usar un repositorio cualquiera como mini sitio web
+    - repositorio > configuraciones > pages
+        - seleccionar rama
+        - seleccionar folder, ej: /docs
+        - save, esperar algunos minotos
+        - luego volver y consultar la url: https://organizacion-nombre.github.io/repo-nombre/ 
+        - ej: https://repositorios-de-estudio.github.io/11-avengers-master/
+-  util para crear un portafolio en el perfil de usuario
+
+
+## Insights (metricas)
+Ayuda a ver quienes hacen que, cuando, que tanto e interacciones generales con el respositorio
+
+- Pulse: Actividad/Metricas generales, issues, commits, pull requests
+- Contributors: Contribuyentes de codigo, quienes y cuantas lineas
+- Community: 
+- Traffic: 
+- Commits: 
+- Code frecuency:  tiempo vs cantidad de commits
+- Dependency Graph: paquetes o dependencias que usa el repositorio
+- Network: Grafico de los commits mas recientes sobre las ramas
+- Forks: quienes han hecho fork del repositorio
+
+# Gist
+Es un espacio similar a un repositorio en github para crear 
 
 ***
 
@@ -730,12 +802,13 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 
 ***
 # REFERENCIAS
-- [Documentación Oficial](https://git-scm.com/docs)
+- [Documentación Oficial Git](https://git-scm.com/docs)
 - [Documentación Markdown](https://www.markdownguide.org/basic-syntax/)
 - [Tutorial Inbteractivo MD](https://www.markdowntutorial.com/lesson/1/)
 - [Documentación GitHub sobre funcionalidades](https://docs.github.com/es)
 - [Emojis en MD](https://www.webfx.com/tools/emoji-cheat-sheet/)
 - [Flujo de Trabajo / Lineamientos GitHub](https://docs.github.com/es/get-started/quickstart/github-flow)
 - [Milestone GitHub](https://docs.github.com/es/issues/tracking-your-work-with-issues/about-issues)
+- [GitHub Pages](https://pages.github.com/)
 
 ![GitHubLogo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
