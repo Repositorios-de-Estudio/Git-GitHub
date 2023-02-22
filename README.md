@@ -1,5 +1,7 @@
 # Curso: GIT+GitHub: Todo un sistema de control de versiones de cero
 
+### TERMINADO 2023-02
+
 Curso de: [GIT+GitHub por Fernando Herrera](https://www.udemy.com/course/git-github/)
 
 # CONCEPTOS Y DEFINICIONES
