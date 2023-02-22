@@ -183,6 +183,11 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
   - View Blabe para colocar todo el respositorio en un commit especifico
 - Hisotorial - ver los commits que ha tenido y sus cambios
 
+## Seguridad en Github
+1. Personal Tokens: Token que al usarla habilita funciones especificas desde otras fuentes, el token tiene permisos especificos para configurar
+2. SSH Keys: Llave que almacena el SO para evitar iniciar sesion en github.com con credenciales para relizar alguna acción, ej: clonar repositorio
+3. GPG Keys: Llave que almacena el So y permite firmar y autenticar los commits que se hacen, en github aparece el commit con *verified*
+
 # Flujo de Trabajo GitHub (basico)
 
 1. No hacer cambios sobre main
