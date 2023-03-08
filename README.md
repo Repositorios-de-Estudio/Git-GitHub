@@ -154,13 +154,11 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
 2. Se pueden usar Releases y Pre-Releases para publicar grandes cambios, esto tambien crea una url para cada Release. Se puede colocar un Release en particular como el último Release.
 3. Se pueden editar el tag para agregar un mensaje y así crear un Realase. Tambien se puede hacer con el bonton de Create Release from Tag.
 4. Se puede realizar Fork de otros repositorios
-
-- Para agregar cambios al repositorio original, desde Github se va a Contribuir > Abrir Pull Request >> seleccionar la rama de origen y la rama de destino
-- en Github existe la opcion de Fetch upstream > **Fetch and merge** cuando el repositorio original tiene cambios, otra alternativa es hacerlo manualmente
-
+   1. Para agregar cambios al repositorio original, desde Github se va a Contribuir > Abrir Pull Request >> seleccionar la rama de origen y la rama de destino
+   2. en Github existe la opcion de Fetch upstream > **Fetch and merge** cuando el repositorio original tiene cambios, otra alternativa es hacerlo manualmente
 5. En el repositorio se pueden ver los Pull Request e Issues
-    - Desde Github: Crear archivo > seleccionar new branch for this commit y start a pull request > propose new file >> seleccionar rama
-        - Se acepta: Merge commit (unir y crear un commit), Squash and merge (se fusionan los cambios con el ultimo commit y hace merge), Rebase and merge.
+   1. Desde Github: Crear archivo > seleccionar new branch for this commit y start a pull request > propose new file >> seleccionar rama
+   2. Se acepta: Merge commit (unir y crear un commit), Squash and merge (se fusionan los cambios con el ultimo commit y hace merge), Rebase and merge.
 6. En Issues se pueden crear labels para ayudar a indentificar el tipo de problemas, Issues>Labels>New Label
 7. Los Actions, son acciones que se pueden automatizar como por ejemplo para hacer despliegue continuo
 8. Porjects tiene lo necesario para toda la parte de planeación, no sería necesario usar mas herramientas
@@ -184,6 +182,7 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
 - Hisotorial - ver los commits que ha tenido y sus cambios
 
 ## Seguridad en Github
+
 1. Personal Tokens: Token que al usarla habilita funciones especificas desde otras fuentes, el token tiene permisos especificos para configurar
 2. SSH Keys: Llave que almacena el SO para evitar iniciar sesion en github.com con credenciales para relizar alguna acción, ej: clonar repositorio
 3. GPG Keys: Llave que almacena el So y permite firmar y autenticar los commits que se hacen, en github aparece el commit con *verified*
@@ -360,6 +359,7 @@ Es un espacio similar a un repositorio en github para compatir codigo y conocimi
     - configurar: ctrl+shif+p > gist: select profile > agregar token de github
     - usar:: ctrl+shift+p > gist: open, seleccionar codigo de la lista que se abre
 - al marcar como extrella un gist que no es mio aparecen ahora en la lista de gist disponibles en vscode
+- [Mi Gist](https://gist.github.com/sergioPerez-e)
 
 ***
 
@@ -425,8 +425,8 @@ Flujo de trabajo que permite realizar pequeños cambios a la rama principal de m
    7. No requiere codigó especial como lo requiere git-flow
    8. Los grandes coflicos son muy poco frecuentes
    9. Mayor eficencia al entregar codigo
-   10. Version alternativa de trunk base
-       1. Scaled trunk based
+   10. Version alternativa de tronco base
+       1. Scaled tronco based
        2. Se permite crear branches de tiempo corto (no mayor a un día)
 2. Estructura del repositorio
    1. Rama principal o tronco
@@ -439,10 +439,11 @@ Flujo de trabajo que permite realizar pequeños cambios a la rama principal de m
       5. Los desarrollares siempre usaran el codigo mas reciente
       6. Uso de pull request
          1. No es obligatorio usar mas ramas por lo que no aplica pull requeste acá
-         2. Si se desea usar pull request, se crea y usa la rama developer basada en trunk
+         2. Si se desea usar pull request, se crea y usa la rama developer basada en tronco
       7. Uso de commit
          1. Se deben hacer commits frecuentemente para evitar distanciarse entre el codigo de los desarrolladores
          2. todos los commits deben ser codigo funcional (que haya superado las pruebas)
+      8. Al tener listo un release actualizar de la rama tronco y luego unir a tronco
 4. Incovenientes
    1. Freeze: Cuando se detecta un bug no se puede enviar cambios al tronco hasta que se solucione por lo que es tiempo inproductivo para la mayoria del equipo
    2. El esfuerzo y responsabilidad de mantener el codigo estable es alto
@@ -478,7 +479,7 @@ Información git del repositorio: \
 
 Inicializar y agregar cambios:
 
-```
+```bash
 git init
 git add .
 git commit -m "Mi primer commit"
@@ -486,7 +487,7 @@ git commit -m "Mi primer commit"
 
 push de un proyecto existente un repositorio en GitHub:
 
-```
+```bash
 git remote add origin git@github.com:Repositorios-blblabla/nuevoRepo.git
 git branch -M main
 git push -u origin main
@@ -506,14 +507,14 @@ ejemplo para usar `git s` como `git status --shot -b`:  \
 **ANAÑIR CONFIGURACIÓN PREDETERMINADA PARA UNIR CAMBIOS CUANDO HAY UN PULL:** \
 En caso de conflictos será necesario resolverlos igual que con *merge*.
 
-```
+```bash
 git config --global pull.rebase true 
 ```
 
 **AÑADIR FIRMA A COMMITS**
 Cuando se tienen llaves SSH se pueden firmara para que los commits salgan con cuenta **Verified**
 
-```
+```bash
 git config --global user.signingKey LLAVE-ID
 config --global commit.gpgsign true
 ```
@@ -558,7 +559,7 @@ traer refererencias del repositorio remoto al local: \
 
 hacer git pull con opción rebase true: \
 
-```
+```bash
 // habilitar localmente o global git pull rebase
 git config pull.rebase true
 git pull
@@ -636,7 +637,7 @@ rebase interactivo (REQ:SG): \
 
 editar commit, agregar varios commits de uno existente: \
 
-```
+```bash
 // usar la opción 'e' en rebase interactivo i 
 git rebase -i HEAD~2
 
@@ -706,7 +707,7 @@ revertir repositorio al commit anterior (REQ:SG): \
 
 revertir cambios de un solo archivo a un commit anterior: \
 
-```
+```bash
 git checkout hash-commit nombre-archivo
 git commit -am "up"
 ```
@@ -721,7 +722,7 @@ diferencia entre archivos estado actual vs ultimo commit:
 
 logs, ver los ultimos n registros:  \
 
-```
+```bash
 git log
 git log -n
 git log --oneline
@@ -800,7 +801,7 @@ ver ramas del repositorio: \
 
 actualizar y traer todo de todas las ramas: \
 
-```
+```bash
 git fetch --all
 git pull --all
 git checkout nuevaRAMA 
@@ -810,14 +811,14 @@ git checkout nuevaRAMA
 
 ver todas ramas del repositorio remoto: \
 
-```
+```bash
 git fetch
 git branch -a
 ```
 
 eliminar rama local:
 
-```
+```bash
 git branch -d otraRama
 
 // para informar remotamente que se elimino
@@ -829,7 +830,7 @@ git push origin -d otraRama
 
 eliminar rama remota:
 
-```
+```bash
 - eliminar rama en github
 git remote prune origin
 // luego eliminar la rama localmente
@@ -842,7 +843,7 @@ cambiar nombre de la rama: \
 
 recuperar rama eliminada desde un tag: \
 
-```
+```bash
 git tag
 git checkout vN.N.N
 git checkout -b otraRama
@@ -851,7 +852,7 @@ git push --set-upstream origin otraRama
 
 recuperar rama eliminada en github desde un tag: \
 
-```
+```bash
 - ir a tags
 - ir al tag en cuestion
 - ir a <> Code, al ir a Code en las ramas saldrá el tag como si fuera la rama
@@ -875,7 +876,7 @@ cambiar de rama: \
 
 unir ramas, introducir a main desde otraRama:
 
-```
+```bash
 git checkout main
 git merge otraRama
 ```
@@ -885,7 +886,7 @@ git merge otraRama
 
 fusionar cambios de main a otraRama:
 
-```
+```bash
 git checkout otraRama
 git rebase main
 ```
@@ -895,36 +896,47 @@ git rebase main
 **evitar conflictos de merge**
 Se quieren traer los cambios de otraRama a main evitando conflictos. Para esto primero se agregan los cambios del main a otraRama con rebase desde otraRama y luego de hace el merge desde el main
 
-```
+```bash
 git checkout otraRama
 git rebase main
 git checkout main
 git merge otraRama
 ```
 
-**resolver conflictos de merge:**
+## resolver conflictos de merge
 
-- Mensaje:
-```
+## CONFLICTO
+
+### Mensaje
+  
+```text
 Auto-fusionando archivo.md
 CONFLICTO (contenido): Conflicto de fusión en archivo.md
 ```
-- Se deben solver los siguientes comentarios en *archivo.md* en el editor de texto: *Se deben hacer las modificaciones necesarias segun lo que sequiere, al final no debe haber '<<<' ni '>>>' ni tampoco'===='*
-```
+
+### Problema
+
+Se deben solver los siguientes comentarios en *archivo.md* en el editor de texto: *Se deben hacer las modificaciones necesarias segun lo que sequiere, al final no debe haber '<<<' ni '>>>' ni tampoco'===='*
+
+```text
 <> HEAD
 1. Buscar nuevos miembros que luchen por la justicia.
 =======
 1. Buscar nuevos miembros que sean super heroes
 > nueva-rama
 ```
-- Solución:
-```
+
+### Solución
+
+```text
 1. Buscar nuevos miembros que luchen por la justicia y sean super heroes.
 ```
-- Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. `git commit -am "resuelve conficto"`
 
-# Agregar cambios y cargar al repositorio remoto
-```
+Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. `git commit -am "resuelve conficto"`
+
+### Agregar cambios y cargar al repositorio remoto
+
+```bash
 git add .
 git commit -m "comentario"
 git pull
@@ -934,7 +946,7 @@ git pull
 
 agregar cambios nuevos del upstream (REQ:SG)
 
-```
+```bash
 // agregar direccion del upstream
 git remote add upstream <repo original>
 
@@ -1043,13 +1055,13 @@ git push –tags
 
 - Alias s para status short:
 
-```
+```bash
 git config --global alias.s "status --short -b"
 ```
 
 - Alias lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD
 
-```
+```bash
 git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 ```
 
