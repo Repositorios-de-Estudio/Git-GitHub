@@ -369,7 +369,7 @@ Es la manera de como se administran las ramas y releases, espeficando como se in
 
 ## Gitflow
 
-Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git.
+Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git. Esta es una metodologia muy fuertemente escructurada
 
 1. Caracteristicas y ventajas
    1. Ideal para proyectos con un ciclo de publicación programado
@@ -412,7 +412,7 @@ Flujo de trabajo que permite estructurar de forma eficiente las ramas del reposi
 
 ## Trunk Base
 
-Flujo de trabajo que permite realizar pequeños cambios a la rama principal de manera frecuente. El estilo de trabajo es basado en la rama principal o tronco
+Flujo de trabajo que permite realizar pequeños cambios a la rama principal de manera frecuente. El estilo de trabajo es basado en la rama principal o tronco. Esta es una metodologia flexible y la compañia decide que principios seguir.
 
 1. Caracteristicas y ventajas
    1. Ideal para CI/CD
