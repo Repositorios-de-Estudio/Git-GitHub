@@ -183,8 +183,10 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
 
 ## Seguridad en Github
 
-1. Personal Tokens: Token que al usarla habilita funciones especificas desde otras fuentes, el token tiene permisos especificos para configurar
-2. SSH Keys: Llave que almacena el SO para evitar iniciar sesion en github.com con credenciales para relizar alguna acción, ej: clonar repositorio
+1. Personal Tokens
+   1. Token que al usarla habilita funciones especificas desde otras fuentes, el token tiene permisos especificos para configurar
+   2. Tambien se puede usar como password en la autenticación al clonar o hacer pull
+2. SSH Keys: Llave que almacena el SO para evitar iniciar sesion en github.com con credenciales para relizar alguna acción, ej: clonar repositorio y pull
 3. GPG Keys: Llave que almacena el So y permite firmar y autenticar los commits que se hacen, en github aparece el commit con *verified*
 
 # Buenas practias de trabajo en GitHub (basico)
@@ -416,34 +418,43 @@ Flujo de trabajo que permite realizar pequeños cambios a la rama principal de m
 
 1. Caracteristicas y ventajas
    1. Ideal para CI/CD
-      1. El deploy se hace automaticamente de unir cambios al tronco
+      1. El deploy se hace automaticamente al unir cambios al tronco
    2. Ideal para lanzar releases con alta periosidad
    3. Ideal para equipos de trabajo en crecimiento
    4. Ramas de corta duración
    5. Trabajado basado en el tronco
-   6. Uso de pull request obligatorio
-   7. No requiere codigó especial como lo requiere git-flow
-   8. Los grandes coflicos son muy poco frecuentes
-   9. Mayor eficencia al entregar codigo
-   10. Version alternativa de tronco base
+   6. No requiere codigó especial como lo requiere git-flow
+   7. Los grandes coflicos son muy poco frecuentes
+   8. Mayor eficencia al entregar codigo
+   9. Version alternativa de tronco base
        1. Scaled tronco based
        2. Se permite crear branches de tiempo corto (no mayor a un día)
+   10. Todo es basado en el tronco
+   11. Se debe mantener el tronco actualizado
+   12. El tronco debe estar estable
+   13. El tronco siempre estará listo para ser release
+   14. Los desarrollares siempre usaran el codigo mas reciente
+   15. Uso de pull request
+        1. No es obligatorio usar mas ramas por lo que no aplica pull requeste acá
+        2. Si se desea usar pull request, se crea y usa la rama developer basada en tronco
+   16. Uso de rama adicional
+        1. Crear rama basada en el tronco con el siguiente nombre *feature/codigo-de-feature*
+        2. Ejemplo: `git branch feature/cs-123345 main`
+   17. Uso de commit
+        1. Se deben hacer commits frecuentemente para evitar distanciarse entre el codigo de los desarrolladores
+        2. todos los commits deben ser codigo funcional (que haya superado las pruebas)
+   18. Al tener listo un release actualizar de la rama tronco y luego unir a tronco
 2. Estructura del repositorio
    1. Rama principal o tronco
    2. Una rama developer de ser requerida
 3. Funcionamiento
-      1. Todo es basado en el tronco
-      2. Se debe mantener el tronco actualizado
-      3. El tronco debe estar estable
-      4. El tronco siempre estará listo para ser release
-      5. Los desarrollares siempre usaran el codigo mas reciente
-      6. Uso de pull request
-         1. No es obligatorio usar mas ramas por lo que no aplica pull requeste acá
-         2. Si se desea usar pull request, se crea y usa la rama developer basada en tronco
-      7. Uso de commit
-         1. Se deben hacer commits frecuentemente para evitar distanciarse entre el codigo de los desarrolladores
-         2. todos los commits deben ser codigo funcional (que haya superado las pruebas)
-      8. Al tener listo un release actualizar de la rama tronco y luego unir a tronco
+   1. Crear una rama de ciclo corto basado en el tronco
+   2. Trabajo del día
+   3. Crear rama con nuevo feature`git branch feature/cs-123345 main`
+   4. Al terminar cambios se deben probar exhaustivamente localmente o en servidor CI
+   5. Actualizar rama con respecto a el tronco
+   6. Hacer merge (pull request) de la rama nueva con el tronco
+   7. Eliminar rama de ciclo corto
 4. Incovenientes
    1. Freeze: Cuando se detecta un bug no se puede enviar cambios al tronco hasta que se solucione por lo que es tiempo inproductivo para la mayoria del equipo
    2. El esfuerzo y responsabilidad de mantener el codigo estable es alto
@@ -861,8 +872,13 @@ recuperar rama eliminada en github desde un tag: \
 git fetch --all
 ```
 
-crear rama: \
-`git branch otraRama`
+crear rama
+
+```bash
+git branch otraRama
+git chechout otraRama
+git push
+```
 
 crear rama y moverse a esa rama: \
 `git checkout -b otraRama`
