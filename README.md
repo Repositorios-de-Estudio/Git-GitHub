@@ -202,42 +202,6 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
     - Preferible no hacer cambios en la rama de otro miembro
 3. Luego de realizar la unión de cambios borrar la rama secundaria
 
-# Metodologías o Flujos de trabajo con ramas Git
-
-## Gitflow
-
-Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git.
-
-1. Ideal para proyectos con un ciclo de publicación programado
-   1. Por ejemplo en releases de scrum
-   2. Cada determinado tiempo se deben entregar nuevas funcionalidades
-   3. Equipos de trabajo para mas de 2 personas
-   4. Para proyectos con complejidad considerable
-   5. Se desea tener un proceso rapido de solucion de errores efectivo
-2. El repositorio se estrtuctura sobre 5 ramas
-   1. Rama main (azul claro): Es la que contiene el release a ser liberado
-   2. Rama develop (morado): Donde se hacen el desarrollo
-   3. Rama hotfix (naranja)
-   4. Rama feature (verde): Donde se agregan nuevas funcionalidade
-   5. Rama relase (azul verdoso): Usada para antes de hacer la publicación
-3. Funcionbamiento
-   1. Se crea develop en base a main
-   2. Se crea release en base a develop
-   3. Se crean ramas feature para cada feature nueva en base a develop
-   4. Al terminar una funcionalidad nueva se crea una rama de fusion
-4. Incovenientes
-   1. Contiene muchas ramas por lo que es facil equivocarse ubicando donde se debe programar
-   2. Se crean nuevas ramas por cada release a liberar
-      1. Se crea una rama entre de release, luego se une con relase
-      2. Se unen los cambios de la rama creada a release y se elimina la rama creada
-   3. Luego se unen los cambios a release
-   4. Por ultimo se unen los cambios de release a main y se libera el release
-   5. 
-
-![Diagrama git-flow](./media/git-flow.png)
-
-## Trunk Base
-
 ## Clone
 
 Comando de Git que se utiliza para apuntar a un repositorio existente y crear un clon o una copia del repositorio de remoto en nuestra maquina local.
@@ -396,6 +360,98 @@ Es un espacio similar a un repositorio en github para compatir codigo y conocimi
     - configurar: ctrl+shif+p > gist: select profile > agregar token de github
     - usar:: ctrl+shift+p > gist: open, seleccionar codigo de la lista que se abre
 - al marcar como extrella un gist que no es mio aparecen ahora en la lista de gist disponibles en vscode
+
+***
+
+# Metodologías o Flujos de trabajo con ramas Git
+
+Es la manera de como se administran las ramas y releases, espeficando como se integra el codigo en el desarollo hasta llegar a la rama de producción.
+
+## Gitflow
+
+Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git.
+
+1. Caracteristicas y ventajas
+   1. Ideal para proyectos con un ciclo de publicación programado
+      1. Por ejemplo en releases de scrum
+   2. Cada determinado tiempo se deben entregar nuevas funcionalidades
+   3. Equipos de trabajo para mas de 2 personas
+   4. Para proyectos con complejidad considerable
+   5. Se desea tener un proceso rapido de solucion de errores efectivo
+   6. Se aplica a proyectos que van a ser creados
+   7. Alineado con el uso de pull request
+   8. Control estructo de cambios
+   9. El deploy se hace luego de unir cambios a main
+   10. Ramas de larga duración
+2. Estrtuctura del repositorio (sobre 5 ramas)
+    1. Rama main (azul claro): Es la que contiene el release a ser liberado
+    2. Rama develop (morado): Donde se hacen el desarrollo
+    3. Rama hotfix (naranja)
+    4. Rama feature (verde): Donde se agregan nuevas funcionalidade
+    5. Rama relase (azul verdoso): Usada para antes de hacer la publicación
+3. Funcionbamiento
+    1. Inicializar el repositorio: `git flow init`
+    2. Se crea develop en base a main
+    3. Se crea release en base a develop
+    4. Se crean ramas feature para cada feature nueva en base a develop
+    5. Al terminar una funcionalidad nueva se crea una rama de fusion
+    6. Se crean nuevas ramas por cada release a liberar
+       1. Se crea una rama entre de release, luego se une con relase
+       2. Se unen los cambios de la rama creada a release y se elimina la rama creada
+    7. Luego se unen los cambios a release
+    8. Por ultimo se unen los cambios de release a main y se libera el release
+    9. Gran parte de las tareas ya se encuentran automatizadas (ver sección comandos-git-flow)
+4. Incovenientes
+    1. Contener varias ramas tiene sus problemas
+       1. Contiene muchas ramas por lo que es facil equivocarse ubicando donde se debe programar
+    2. Tener ramas de larga vida puede provocar inconsistencias en el codigo
+    3. Los conflictos en el codigo pueden ser en gran numero debido a que No se puede liberar una release rapidamente
+  
+![Diagrama git-flow](./media/git-flow.png)
+[Fuente](https://dev.to/marianocodes/por-que-trunk-based-development-i5n)
+
+## Trunk Base
+
+Flujo de trabajo que permite realizar pequeños cambios a la rama principal de manera frecuente. El estilo de trabajo es basado en la rama principal o tronco
+
+1. Caracteristicas y ventajas
+   1. Ideal para CI/CD
+      1. El deploy se hace automaticamente de unir cambios al tronco
+   2. Ideal para lanzar releases con alta periosidad
+   3. Ideal para equipos de trabajo en crecimiento
+   4. Ramas de corta duración
+   5. Trabajado basado en el tronco
+   6. Uso de pull request obligatorio
+   7. No requiere codigó especial como lo requiere git-flow
+   8. Los grandes coflicos son muy poco frecuentes
+   9. Mayor eficencia al entregar codigo
+   10. Version alternativa de trunk base
+       1. Scaled trunk based
+       2. Se permite crear branches de tiempo corto (no mayor a un día)
+2. Estructura del repositorio
+   1. Rama principal o tronco
+   2. Una rama developer de ser requerida
+3. Funcionamiento
+      1. Todo es basado en el tronco
+      2. Se debe mantener el tronco actualizado
+      3. El tronco debe estar estable
+      4. El tronco siempre estará listo para ser release
+      5. Los desarrollares siempre usaran el codigo mas reciente
+      6. Uso de pull request
+         1. No es obligatorio usar mas ramas por lo que no aplica pull requeste acá
+         2. Si se desea usar pull request, se crea y usa la rama developer basada en trunk
+      7. Uso de commit
+         1. Se deben hacer commits frecuentemente para evitar distanciarse entre el codigo de los desarrolladores
+         2. todos los commits deben ser codigo funcional (que haya superado las pruebas)
+4. Incovenientes
+   1. Freeze: Cuando se detecta un bug no se puede enviar cambios al tronco hasta que se solucione por lo que es tiempo inproductivo para la mayoria del equipo
+   2. El esfuerzo y responsabilidad de mantener el codigo estable es alto
+   3. Se requiere diseñar y usar siempre pruebas funcionales/codigo
+      1. En su defecto tener buena integración CI
+   4. Feature flags: Las nuevas funcionalidades sin terminar estaran ocultas al usuario final hasta completarse
+
+![Diagrama trunk-base](./media/trunk-base.png)
+[Fuente](https://dev.to/marianocodes/por-que-trunk-based-development-i5n)
 
 ***
 
@@ -848,31 +904,31 @@ git merge otraRama
 
 **resolver conflictos de merge:**
 
-    - Mensaje:
-    ```
-    Auto-fusionando archivo.md
-    CONFLICTO (contenido): Conflicto de fusión en archivo.md
-    ```
-    - Se deben solver los siguientes comentarios en *archivo.md* en el editor de texto: *Se deben hacer las modificaciones necesarias segun lo que sequiere, al final no debe haber '<<<' ni '>>>' ni tampoco'===='*
-    ```
-    <<<<<<< HEAD
-    3. Buscar nuevos miembros que luchen por la justicia.
-    =======
-    3. Buscar nuevos miembros que sean super heroes
-    >>>>>>> nueva-rama
-    ```
-    - Solución:
-    ```
-    3. Buscar nuevos miembros que luchen por la justicia y sean super heroes.
-    ```
-    - Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. `git commit -am "resuelve conficto"`
+- Mensaje:
+```
+Auto-fusionando archivo.md
+CONFLICTO (contenido): Conflicto de fusión en archivo.md
+```
+- Se deben solver los siguientes comentarios en *archivo.md* en el editor de texto: *Se deben hacer las modificaciones necesarias segun lo que sequiere, al final no debe haber '<<<' ni '>>>' ni tampoco'===='*
+```
+<> HEAD
+1. Buscar nuevos miembros que luchen por la justicia.
+=======
+1. Buscar nuevos miembros que sean super heroes
+> nueva-rama
+```
+- Solución:
+```
+1. Buscar nuevos miembros que luchen por la justicia y sean super heroes.
+```
+- Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. `git commit -am "resuelve conficto"`
 
-    # Agregar cambios y cargar al repositorio remoto
-    ```
-    git add .
-    git commit -m "comentario"
-    git pull
-    ```
+# Agregar cambios y cargar al repositorio remoto
+```
+git add .
+git commit -m "comentario"
+git pull
+```
 
 # Trabajo con Foks
 
@@ -890,6 +946,74 @@ git fetch upstream nombre-rama
 git pull
 
 // pueden surgin conflicos luego de hacer el fetch
+```
+
+***
+
+# Comandos GIT-FLOW
+
+## Implementación git-flow
+
+```bash
+# Clonar repositorio
+git clone https://github.com/my-account/my-repo-name.git .
+
+# Crear rama develop a partir de master
+git checkout -b develop master
+
+# Listar las ramas
+git branch -a
+
+# Crear rama develop en el repositorio remoto
+git push --set-upstream origin develop
+
+# Iniciar GitFlow
+git flow init
+
+## se crea por defecto los siguiente prefijos para las ramas auxiliares
+# feature/
+# release/
+# hotfix/
+# bugfix/
+# support/
+```
+
+## Crear una caracteristica
+
+```bash
+git flow feature start create-contat-form
+
+# Confirmar los cambios que se hayan realizado
+git status
+git add -A
+git commit -m "Create contact-form.php"
+
+# Finalizar característica
+git flow feature finish create-contat-form
+```
+
+## Crear liberación
+
+```bash
+git flow release start 1.0.0
+
+# Confirmar los cambios que se hayan realizado
+git status
+git add -A
+git commit -m "Add release notes"
+
+# Finalizar liberación
+git flow release finish 1.0.0
+
+# Subir cambios y tags de la rama develop
+git checkout develop
+git push
+git push –tags
+
+# Subir cambios t etiquetas de la rama master
+git checkout master
+git push
+git push –tags
 ```
 
 # ERRORES COMUNES
@@ -950,5 +1074,6 @@ git config --global alias.lg "log --graph --abbrev-commit --decorate --format=fo
 - [Milestone GitHub](https://docs.github.com/es/issues/tracking-your-work-with-issues/about-issues)
 - [GitHub Pages](https://pages.github.com/)
 - [Todos los Gist de Github](https://gist.github.com/discover)
-
+- [Implementacion Git Flow](https://gfourmis.co/gitflow-sin-morir-en-el-intento/)
+- [git flow y trunk base](https://openwebinars.net/blog/trunk-based-development-vs-git-flow-cual-elegir/)
 ![GitHubLogo](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png)
