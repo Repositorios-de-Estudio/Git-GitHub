@@ -373,7 +373,8 @@ Es la manera de como se administran las ramas y releases, espeficando como se in
 
 Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git. Esta es una metodologia muy fuertemente escructurada
 
-1. Caracteristicas y ventajas
+1. NO Recomendado para DevOps
+2. Caracteristicas y ventajas
    1. Ideal para proyectos con un ciclo de publicación programado
       1. Por ejemplo en releases de scrum
    2. Cada determinado tiempo se deben entregar nuevas funcionalidades
@@ -385,13 +386,13 @@ Flujo de trabajo que permite estructurar de forma eficiente las ramas del reposi
    8. Control estructo de cambios
    9. El deploy se hace luego de unir cambios a main
    10. Ramas de larga duración
-2. Estrtuctura del repositorio (sobre 5 ramas)
+3. Estrtuctura del repositorio (sobre 5 ramas)
     1. Rama main (azul claro): Es la que contiene el release a ser liberado
     2. Rama develop (morado): Donde se hacen el desarrollo
     3. Rama hotfix (naranja)
     4. Rama feature (verde): Donde se agregan nuevas funcionalidade
     5. Rama relase (azul verdoso): Usada para antes de hacer la publicación
-3. Funcionbamiento
+4. Funcionbamiento
     1. Inicializar el repositorio: `git flow init`
     2. Se crea develop en base a main
     3. Se crea release en base a develop
@@ -403,7 +404,7 @@ Flujo de trabajo que permite estructurar de forma eficiente las ramas del reposi
     7. Luego se unen los cambios a release
     8. Por ultimo se unen los cambios de release a main y se libera el release
     9. Gran parte de las tareas ya se encuentran automatizadas (ver sección comandos-git-flow)
-4. Incovenientes
+5. Incovenientes
     1. Contener varias ramas tiene sus problemas
        1. Contiene muchas ramas por lo que es facil equivocarse ubicando donde se debe programar
     2. Tener ramas de larga vida puede provocar inconsistencias en el codigo
@@ -417,33 +418,34 @@ Flujo de trabajo que permite estructurar de forma eficiente las ramas del reposi
 Flujo de trabajo que permite realizar pequeños cambios a la rama principal de manera frecuente. El estilo de trabajo es basado en la rama principal o tronco. Esta es una metodologia flexible y la compañia decide que principios seguir.
 
 1. Caracteristicas y ventajas
-   1. Ideal para CI/CD
+   1. Recomendado para DevOps
+   2. Ideal para CI/CD
       1. El deploy se hace automaticamente al unir cambios al tronco
-   2. Ideal para lanzar releases con alta periosidad
-   3. Ideal para equipos de trabajo en crecimiento
-   4. Ramas de corta duración
-   5. Trabajado basado en el tronco
-   6. No requiere codigó especial como lo requiere git-flow
-   7. Los grandes coflicos son muy poco frecuentes
-   8. Mayor eficencia al entregar codigo
-   9. Version alternativa de tronco base
+   3. Ideal para lanzar releases con alta periosidad
+   4. Ideal para equipos de trabajo en crecimiento
+   5. Ramas de corta duración
+   6. Trabajado basado en el tronco
+   7. No requiere codigó especial como lo requiere git-flow
+   8. Los grandes coflicos son muy poco frecuentes
+   9. Mayor eficencia al entregar codigo
+   10. Version alternativa de tronco base
        1. Scaled tronco based
        2. Se permite crear branches de tiempo corto (no mayor a un día)
-   10. Todo es basado en el tronco
-   11. Se debe mantener el tronco actualizado
-   12. El tronco debe estar estable
-   13. El tronco siempre estará listo para ser release
-   14. Los desarrollares siempre usaran el codigo mas reciente
-   15. Uso de pull request
+   11. Todo es basado en el tronco
+   12. Se debe mantener el tronco actualizado
+   13. El tronco debe estar estable
+   14. El tronco siempre estará listo para ser release
+   15. Los desarrollares siempre usaran el codigo mas reciente
+   16. Uso de pull request
         1. No es obligatorio usar mas ramas por lo que no aplica pull requeste acá
         2. Si se desea usar pull request, se crea y usa la rama developer basada en tronco
-   16. Uso de rama adicional
+   17. Uso de rama adicional
         1. Crear rama basada en el tronco con el siguiente nombre *feature/codigo-de-feature*
         2. Ejemplo: `git branch feature/cs-123345 main`
-   17. Uso de commit
+   18. Uso de commit
         1. Se deben hacer commits frecuentemente para evitar distanciarse entre el codigo de los desarrolladores
         2. todos los commits deben ser codigo funcional (que haya superado las pruebas)
-   18. Al tener listo un release actualizar de la rama tronco y luego unir a tronco
+   19. Al tener listo un release actualizar de la rama tronco y luego unir a tronco
 2. Estructura del repositorio
    1. Rama principal o tronco
    2. Una rama developer de ser requerida
@@ -980,6 +982,12 @@ git pull
 
 # Comandos GIT-FLOW
 
+```bash
+sudo dnf copr enable elegos/gitflow
+sudo dnf update
+sudo dnf install gitflow
+```
+
 ## Implementación git-flow
 
 ```bash
@@ -998,6 +1006,10 @@ git push --set-upstream origin develop
 # Iniciar GitFlow
 git flow init
 
+## se crean las ramas
+main
+develop
+
 ## se crea por defecto los siguiente prefijos para las ramas auxiliares
 # feature/
 # release/
@@ -1009,15 +1021,15 @@ git flow init
 ## Crear una caracteristica
 
 ```bash
-git flow feature start create-contat-form
+git flow feature start nombre-con-id-feature
 
 # Confirmar los cambios que se hayan realizado
 git status
-git add -A
-git commit -m "Create contact-form.php"
+git add .
+git commit -am "comentario sobre el feature"
 
-# Finalizar característica
-git flow feature finish create-contat-form
+# Finalizar característica, esto une los cambios a develop y elimna la rama con el feature y queda ubicado en develop
+git flow feature finish nombre-con-id-feature
 ```
 
 ## Crear liberación
@@ -1036,12 +1048,12 @@ git flow release finish 1.0.0
 # Subir cambios y tags de la rama develop
 git checkout develop
 git push
-git push –tags
+git push –-tags
 
 # Subir cambios t etiquetas de la rama master
 git checkout master
 git push
-git push –tags
+git push –-tags
 ```
 
 # ERRORES COMUNES
