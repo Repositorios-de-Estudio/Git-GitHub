@@ -188,7 +188,7 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
 2. SSH Keys: Llave que almacena el SO para evitar iniciar sesion en github.com con credenciales para relizar alguna acción, ej: clonar repositorio
 3. GPG Keys: Llave que almacena el So y permite firmar y autenticar los commits que se hacen, en github aparece el commit con *verified*
 
-# Flujo de Trabajo GitHub (basico)
+# Buenas practias de trabajo en GitHub (basico)
 
 1. No hacer cambios sobre main
     - cada miembro del equipo crea su propia rama (feature branch)
@@ -201,6 +201,42 @@ Cuando un programa queda sin soporte u obsoleto y el cliente desea agregar cambi
     - Discutir y comentar los cambios antes de aprobar o rechazar
     - Preferible no hacer cambios en la rama de otro miembro
 3. Luego de realizar la unión de cambios borrar la rama secundaria
+
+# Metodologías o Flujos de trabajo con ramas Git
+
+## Gitflow
+
+Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git.
+
+1. Ideal para proyectos con un ciclo de publicación programado
+   1. Por ejemplo en releases de scrum
+   2. Cada determinado tiempo se deben entregar nuevas funcionalidades
+   3. Equipos de trabajo para mas de 2 personas
+   4. Para proyectos con complejidad considerable
+   5. Se desea tener un proceso rapido de solucion de errores efectivo
+2. El repositorio se estrtuctura sobre 5 ramas
+   1. Rama main (azul claro): Es la que contiene el release a ser liberado
+   2. Rama develop (morado): Donde se hacen el desarrollo
+   3. Rama hotfix (naranja)
+   4. Rama feature (verde): Donde se agregan nuevas funcionalidade
+   5. Rama relase (azul verdoso): Usada para antes de hacer la publicación
+3. Funcionbamiento
+   1. Se crea develop en base a main
+   2. Se crea release en base a develop
+   3. Se crean ramas feature para cada feature nueva en base a develop
+   4. Al terminar una funcionalidad nueva se crea una rama de fusion
+4. Incovenientes
+   1. Contiene muchas ramas por lo que es facil equivocarse ubicando donde se debe programar
+   2. Se crean nuevas ramas por cada release a liberar
+      1. Se crea una rama entre de release, luego se une con relase
+      2. Se unen los cambios de la rama creada a release y se elimina la rama creada
+   3. Luego se unen los cambios a release
+   4. Por ultimo se unen los cambios de release a main y se libera el release
+   5. 
+
+![Diagrama git-flow](./media/git-flow.png)
+
+## Trunk Base
 
 ## Clone
 
