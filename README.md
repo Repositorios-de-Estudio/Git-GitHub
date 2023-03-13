@@ -308,6 +308,15 @@ Permite tener documentación o lugar como si fuera una pagina web. Puede usar el
 
 - Solo disponible con GitHub de pago (febrero 2023)
 
+## Webhooks
+
+Caracteristica de Github que permite obtener notificaciones a eventos que suceden en los repositorios. Un webhook trabajaría como un endpoint en la aplicación que lo usa. \
+
+Esto es últil porque se tiene tiene que estar consultando continuiamente mediante una API si hubo algún evento.
+
+- Trabaja con eventos
+- Notifica cuando hay algun evento
+
 ## Proyectos
 
 Funcionalidad similar a JIRA donde se tiene una colección de elementos (su estado0 se mantiene actualizado), con los proyectos se pueden realizar el seguimiento de incidencias, solicitudes de incorporación de cambios e ideas/comentarios. Se pueden agregar campos personalizados y vistas (tablero, tabla).
