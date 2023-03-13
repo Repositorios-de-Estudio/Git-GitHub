@@ -316,6 +316,10 @@ Esto es últil porque se tiene tiene que estar consultando continuiamente median
 
 - Trabaja con eventos
 - Notifica cuando hay algun evento
+- Eventos
+  - notificar cuando hay un push
+  - enviar todos los eventos, pull, push, request, aprobar request...
+  - dejar seleccionar
 
 ## Proyectos
 
